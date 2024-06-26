@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{{ $title ?? 'Page Title' }}</title>
+        <title>{{ $title ?? 'LARAPP' }}</title>
 
         @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     </head>
@@ -12,7 +12,7 @@
     <h1 class="text-3xl font-bold underline">
         Hello world!
     </h1>
-    <div class="container-cu mx-auto">
+    <div>
         {{ $slot }}
     </div>
     <div x-data="{ open: false }">

@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.container-cu{
-    background: red;
+
+@layer base {
+    @import "skin";
+}
+
+@layer components {
+    @import "common";
 }
