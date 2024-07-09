@@ -1,3 +1,3 @@
 <div>
-    Copyright
+    &copy; {{ date('Y') }} {{ config('myapp.name') }}
 </div>
