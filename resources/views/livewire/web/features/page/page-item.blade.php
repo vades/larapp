@@ -1,3 +1,1 @@
-<div>
-   <h1>pageItem</h1>
-</div>
+<livewire:web.components.page-header />
