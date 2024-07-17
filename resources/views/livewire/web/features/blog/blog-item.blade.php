@@ -1,6 +1,4 @@
 <section>
     <livewire:web.features.blog.item.page-header />
-    <article>
-        Blog item content comes here
-    </article>
+    <livewire:web.features.blog.item.main-content />
 </section>

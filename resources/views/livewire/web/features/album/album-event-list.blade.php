@@ -1,6 +1,4 @@
 <section>
     <livewire:web.features.album.event.page-header />
-    <article>
-        Album event Content comes here
-    </article>
+    <livewire:web.features.album.event.main-content />
 </section>

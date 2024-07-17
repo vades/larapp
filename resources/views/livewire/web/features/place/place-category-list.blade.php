@@ -1,6 +1,4 @@
 <section>
     <livewire:web.features.place.category.page-header />
-    <article>
-        Place category Content comes here
-    </article>
+    <livewire:web.features.place.category.main-content />
 </section>
