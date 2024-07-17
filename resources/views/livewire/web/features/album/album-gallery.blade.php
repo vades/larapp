@@ -1,3 +1,6 @@
-<div>
-    <h1>albumGallery</h1>
-</div>
+<section>
+    <livewire:web.features.album.gallery.page-header />
+    <article>
+        Album gallery Content comes here
+    </article>
+</section>

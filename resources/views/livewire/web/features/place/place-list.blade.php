@@ -1,3 +1,6 @@
-<div>
-    <h1>placeList</h1>
-</div>
+<section>
+    <livewire:web.features.place.list.page-header />
+    <article>
+        Place list Content comes here
+    </article>
+</section>

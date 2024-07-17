@@ -1,3 +1,6 @@
-<div>
-    <h1>blogItem</h1>
-</div>
+<section>
+    <livewire:web.features.blog.item.page-header />
+    <article>
+        Blog item content comes here
+    </article>
+</section>
