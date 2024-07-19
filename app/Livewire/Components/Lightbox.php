@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Web\Components;
+namespace App\Livewire\Components;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class Lightbox extends Component
 {
     public function render()
     {
-        return view('livewire.web.components.lightbox');
+        return view('livewire.components.lightbox');
     }
 }

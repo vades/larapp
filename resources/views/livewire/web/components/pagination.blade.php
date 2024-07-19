@@ -1,3 +1,0 @@
-<div>
-   Pagination works
-</div>

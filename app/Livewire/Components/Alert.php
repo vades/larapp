@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Web\Components;
+namespace App\Livewire\Components;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class Alert extends Component
 {
     public function render()
     {
-        return view('livewire.web.components.alert');
+        return view('livewire.components.alert');
     }
 }

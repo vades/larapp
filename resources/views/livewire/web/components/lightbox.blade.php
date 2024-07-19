@@ -1,3 +1,0 @@
-<div>
-   Lightbox works
-</div>

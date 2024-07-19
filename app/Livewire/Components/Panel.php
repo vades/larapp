@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Web\Components;
+namespace App\Livewire\Components;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class Panel extends Component
 {
     public function render()
     {
-        return view('livewire.web.components.panel');
+        return view('livewire.components.panel');
     }
 }

@@ -1,3 +1,0 @@
-<div>
-    Tag works
-</div>

@@ -1,3 +1,0 @@
-<div>
-    Panel works
-</div>
