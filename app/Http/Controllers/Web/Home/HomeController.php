@@ -12,6 +12,6 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('web.home.home');
+       return view('components.web.features.home.home');
     }
 }
