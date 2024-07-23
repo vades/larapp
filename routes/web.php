@@ -1,5 +1,6 @@
 <?php
 use App\Livewire\Web\Features\Home\Home;
+use App\Http\Controllers\Web\Home\HomeController;
 use App\Livewire\Web\Features\Page\PageItem;
 use App\Livewire\Web\Features\Blog\BlogList;
 use App\Livewire\Web\Features\Blog\BlogItem;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * Home
  */
-Route::get('/', Home::class)->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 /**
  * Pages
