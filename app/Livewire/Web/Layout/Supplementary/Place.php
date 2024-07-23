@@ -8,6 +8,6 @@ class Place extends Component
 {
     public function render()
     {
-        return view('livewire.web.layout.supplementary.place');
+        return view('livewire.web.layouts.supplementary.place');
     }
 }
