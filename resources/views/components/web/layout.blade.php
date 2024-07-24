@@ -14,7 +14,8 @@
         <main class="mb-auto container mx-auto p-3 md:pt-4 md:pb-4">
             {{ $slot }}
         </main>
-
+        <x-web.shared.supplementary />
+        <x-web.shared.footer />
 
     </div>
 
