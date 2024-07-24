@@ -1,6 +1,7 @@
 # Laravel quick commands
 - `php artisan serve` Running Laravel
 - `npm run dev` Running Vite
+- `php artisan make:controller ControllerName` Create a new controller
 - `php artisan route:list` List all routes
 - `php artisan make:component web.shared.header --view`
 - `php artisan make:livewire dir.component-name` Create a new Livewire component

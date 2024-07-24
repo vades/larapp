@@ -1,6 +1,7 @@
 <?php
 use App\Livewire\Web\Features\Home\Home;
 use App\Http\Controllers\Web\Home\HomeController;
+use App\Http\Controllers\Web\Page\PageController;
 use App\Livewire\Web\Features\Page\PageItem;
 use App\Livewire\Web\Features\Blog\BlogList;
 use App\Livewire\Web\Features\Blog\BlogItem;
@@ -22,7 +23,7 @@ Route::get('/', HomeController::class)->name('home');
 /**
  * Pages
  */
-Route::get('/page/{pageId}', PageItem::class)->name('pageItem');
+Route::get('/page/{pageId}', PageController::class)->name('pageItem');
 
 /**
  * Blog
