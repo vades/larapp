@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="Description" content="{{ $description ?? 'This is LARAPP' }}">
+        <meta name="keywords" content="{{ $keywords ?? 'key1 key2'}}">
         <title>{{ $title ?? 'LARAPP' }}</title>
 
         @vite(['resources/scss/app.scss', 'resources/js/app.js'])
