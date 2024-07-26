@@ -14,7 +14,7 @@ class PageItemController extends Controller
      */
     public function __invoke(Request $request): View
     {
-        return view('components.web.features.page.page-item',[
+        $page =  (object)[
             'title' => 'Page title',
             'subtitle' => 'Page subtitle',
             'description' => 'Orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
@@ -26,10 +26,14 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 - Consectetur adipiscing elit
 - Sed do eiusmod tempor incididunt
 - Ut labore et dolore magna aliqua')->markdown(),
-            'metaTitle' => 'Page Meta',
+            'metaTitle' => 'Page Meta Title',
             'keywords' => 'Page keywords',
             'metaDescription' => 'Page meta description',
             'image' => asset('https://picsum.photos/300/300'),
-        ]);
+        ];
+
+        //$page = (object)$page;
+        return view('components.web.features.page.page-item',[
+            'page' => $page]);
     }
 }
