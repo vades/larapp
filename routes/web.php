@@ -1,7 +1,7 @@
 <?php
 use App\Livewire\Web\Features\Home\Home;
-use App\Http\Controllers\Web\Home\HomeController;
-use App\Http\Controllers\Web\Page\PageController;
+use App\Http\Controllers\Web\Features\Home\HomeItemController;
+use App\Http\Controllers\Web\Features\Page\PageItemController;
 use App\Livewire\Web\Features\Page\PageItem;
 use App\Livewire\Web\Features\Blog\BlogList;
 use App\Livewire\Web\Features\Blog\BlogItem;
@@ -18,12 +18,12 @@ use Illuminate\Support\Facades\Route;
 /**
  * Home
  */
-Route::get('/', HomeController::class)->name('home');
+Route::get('/', HomeItemController::class)->name('home');
 
 /**
  * Pages
  */
-Route::get('/page/{pageId}', PageController::class)->name('pageItem');
+Route::get('/page/{pageId}', PageItemController::class)->name('pageItem');
 
 /**
  * Blog
