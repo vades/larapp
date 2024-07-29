@@ -3,4 +3,5 @@
     <article>
        Content
     </article>
+    <x-utils.pagination />
 </x-web.layout>
