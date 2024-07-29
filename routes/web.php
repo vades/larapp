@@ -1,9 +1,7 @@
 <?php
-use App\Livewire\Web\Features\Home\Home;
 use App\Http\Controllers\Web\Features\Home\HomeItemController;
 use App\Http\Controllers\Web\Features\Page\PageItemController;
-use App\Livewire\Web\Features\Page\PageItem;
-use App\Livewire\Web\Features\Blog\BlogList;
+use  App\Http\Controllers\Web\Features\Blog\BlogController;
 use App\Livewire\Web\Features\Blog\BlogItem;
 use App\Livewire\Web\Features\Blog\BlogCategoryList;
 use App\Livewire\Web\Features\Blog\BlogTagList;
@@ -28,7 +26,7 @@ Route::get('/page/{pageId}', PageItemController::class)->name('pageItem');
 /**
  * Blog
  */
-Route::get('/blog', BlogList::class)->name('blogList');
+Route::get('/blog', [BlogController::class, 'index'])->name('blogList');
 Route::get('/blog/categories', BlogCategoryList::class)->name('blogCategoryList');
 Route::get('/blog/tags', BlogTagList::class)->name('blogTagList');
 Route::get('/blog/{postId}', BlogItem::class)->name('blogItem');

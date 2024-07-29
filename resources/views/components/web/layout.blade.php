@@ -11,12 +11,12 @@
     </head>
     <body>
     <div class="flex flex-col h-screen justify-between">
-            <x-web.shared.header />
+            <x-web.partials.header />
         <main class="mb-auto container mx-auto p-3 md:pt-4 md:pb-4">
             {{ $slot }}
         </main>
-        <x-web.shared.supplementary />
-        <x-web.shared.footer />
+        <x-web.partials.supplementary />
+        <x-web.partials.footer />
 
     </div>
 
