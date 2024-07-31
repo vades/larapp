@@ -8,10 +8,17 @@
 - `php artisan make:livewire dir.component-name --inline` Create a new inline Livewire component
 - `php artisan livewire:stubs` Publish Livewire stubs
 - `php artisan livewire:layout` Create a new layout file
+ 
 ```bash
 php artisan cache:clear
 php artisan view:clear
 php artisan config:clear
 php artisan route:clear
 composer dump-autoload
+```
+
+```
+ base_path();    // '/var/www/mysite'
+  app_path();     // '/var/www/mysite/app'
+  storage_path(); // '/var/www/mysite/storage'
 ```
