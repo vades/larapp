@@ -25,7 +25,7 @@ class BlogController extends Controller
             'metaDescription' => 'Blog List - Page meta description',
         ];
 
-        return view('components.web.features.blog.blog-list',[
+        return view('web.features.blog.blog-list',[
             'posts' => $posts ,'page' => $page] );
     }
 
