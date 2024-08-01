@@ -1,7 +1,7 @@
 <?php
-use App\Http\Controllers\Web\Features\Home\HomeItemController;
-use App\Http\Controllers\Web\Features\Page\PageItemController;
-use  App\Http\Controllers\Web\Features\Blog\BlogController;
+use App\Http\Controllers\Web\Home\HomeItemController;
+use App\Http\Controllers\Web\Page\PageItemController;
+use  App\Http\Controllers\Web\Blog\BlogController;
 use App\Livewire\Web\Features\Blog\BlogItem;
 use App\Livewire\Web\Features\Blog\BlogCategoryList;
 use App\Livewire\Web\Features\Blog\BlogTagList;
