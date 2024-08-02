@@ -13,6 +13,6 @@ class HomeItemController extends Controller
      */
     public function __invoke(Request $request): View
     {
-        return view('web.features.home.home-item');
+        return view('components.web.features.home.home-item');
     }
 }

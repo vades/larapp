@@ -33,7 +33,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
         ];
 
         //$page = (object)$page;
-        return view('web.features.page.page-item',[
+        return view('components.web.features.page.page-item',[
             'page' => $page]);
     }
 }
