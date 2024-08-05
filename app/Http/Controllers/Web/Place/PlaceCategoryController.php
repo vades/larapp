@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web\Blog;
+namespace App\Http\Controllers\Web\Place;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class BlogCategoryController extends Controller
+class PlaceCategoryController extends Controller
 {
     /**
      * Handle the incoming request.

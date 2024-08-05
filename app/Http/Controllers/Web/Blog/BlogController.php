@@ -37,4 +37,14 @@ class BlogController extends Controller
     {
         //
     }
+
+    public function category()
+    {
+        //
+    }
+
+    public function tag()
+    {
+        //
+    }
 }
