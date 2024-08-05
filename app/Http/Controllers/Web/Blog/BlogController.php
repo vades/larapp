@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -15,8 +16,7 @@ class BlogController extends Controller
      */
     public function index(): View
     {
-        $contents = File::get(storage_path('app/data/blog-posts.json'));
-        $posts = json_decode(json: $contents);
+        $posts = Post::allPosts();
         $page =  (object)[
             'title' => 'Blog List title',
             'subtitle' => 'Blog List subtitle',
