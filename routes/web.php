@@ -1,10 +1,8 @@
 <?php
 use App\Http\Controllers\Web\Home\HomeItemController;
 use App\Http\Controllers\Web\Page\PageItemController;
-use  App\Http\Controllers\Web\Blog\BlogController;
-use App\Livewire\Web\Features\Blog\BlogItem;
-use App\Livewire\Web\Features\Blog\BlogCategoryList;
-use App\Livewire\Web\Features\Blog\BlogTagList;
+use App\Http\Controllers\Web\Blog\BlogController;
+use App\Http\Controllers\Web\Place\PlaceController;
 use App\Livewire\Web\Features\Place\PlaceList;
 use App\Livewire\Web\Features\Place\PlaceItem;
 use App\Livewire\Web\Features\Place\PlaceCategoryList;
@@ -34,9 +32,9 @@ Route::get('/blog/{postId}', [BlogController::class, 'show'])->name('blogItem');
 /**
  * Places
  */
-Route::get('/places', PlaceList::class)->name('placeList');
-Route::get('/places/categories', PlaceCategoryList::class)->name('placeCategoryList');
-Route::get('/places/{placeId}', PlaceItem::class)->name('placeItem');
+Route::get('/places', [PlaceController::class,'index'])->name('placeList');
+Route::get('/places/categories',  [PlaceController::class,'category'])->name('placeCategoryList');
+Route::get('/places/{placeId}',  [PlaceController::class,'show'])->name('placeItem');
 
 /**
  * Albums

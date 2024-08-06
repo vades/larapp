@@ -1,3 +1,4 @@
-<div>
-    <!-- I have not failed. I've just found 10,000 ways that won't work. - Thomas Edison -->
-</div>
+<x-web.layout :title="$page->metaTitle" :description="$page->metaDescription" :keywords="$page->keywords">
+    <x-web.partials.page-header :page="$page" />
+
+</x-web.layout>
