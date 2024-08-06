@@ -1,3 +1,4 @@
-<div>
-    <!-- The only way to do great work is to love what you do. - Steve Jobs -->
-</div>
+<x-web.layout :title="$page->metaTitle" :description="$page->metaDescription" :keywords="$page->keywords">
+    <x-web.partials.page-header :page="$page" />
+
+</x-web.layout>

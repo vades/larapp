@@ -27,9 +27,9 @@ Route::get('/page/{pageId}', PageItemController::class)->name('pageItem');
  * Blog
  */
 Route::get('/blog', [BlogController::class, 'index'])->name('blogList');
-Route::get('/blog/categories', BlogCategoryList::class)->name('blogCategoryList');
-Route::get('/blog/tags', BlogTagList::class)->name('blogTagList');
-Route::get('/blog/{postId}', BlogItem::class)->name('blogItem');
+Route::get('/blog/categories', [BlogController::class, 'category'])->name('blogCategoryList');
+Route::get('/blog/tags', [BlogController::class, 'tag'])->name('blogTagList');
+Route::get('/blog/{postId}', [BlogController::class, 'show'])->name('blogItem');
 
 /**
  * Places
