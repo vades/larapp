@@ -35,16 +35,40 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('components.web.features.blog.item.blog-item', [
+            'page' => (object)[
+                'title' => 'Blog Item title',
+                'subtitle' => 'Blog Item subtitle',
+                'metaTitle' => 'Blog Item - Page Meta Title',
+                'keywords' => 'Blog, Item, Page, keywords',
+                'metaDescription' => 'Blog Item - Page meta description',
+            ]
+        ]);
     }
 
     public function category()
     {
-        //
+        return view('components.web.features.blog.list.blog-list-category', [
+            'page' => (object)[
+                'title' => 'Blog Category title',
+                'subtitle' => 'Blog Category subtitle',
+                'metaTitle' => 'Blog Category - Page Meta Title',
+                'keywords' => 'Blog, Category, Page, keywords',
+                'metaDescription' => 'Blog Category - Page meta description',
+            ]
+        ]);
     }
 
     public function tag()
     {
-        //
+        return view('components.web.features.blog.list.blog-list-tag', [
+            'page' => (object)[
+                'title' => 'Blog Tag title',
+                'subtitle' => 'Blog Tag subtitle',
+                'metaTitle' => 'Blog Tag - Page Meta Title',
+                'keywords' => 'Blog, Tag, Page, keywords',
+                'metaDescription' => 'Blog Tag - Page meta description',
+            ]
+        ]);
     }
 }
