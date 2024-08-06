@@ -1,3 +1,4 @@
-<div>
-    <!-- Do what you can, with what you have, where you are. - Theodore Roosevelt -->
-</div>
+<x-web.layout :title="$page->metaTitle" :description="$page->metaDescription" :keywords="$page->keywords">
+    <x-web.partials.page-header :page="$page" />
+
+</x-web.layout>

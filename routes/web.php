@@ -3,12 +3,7 @@ use App\Http\Controllers\Web\Home\HomeItemController;
 use App\Http\Controllers\Web\Page\PageItemController;
 use App\Http\Controllers\Web\Blog\BlogController;
 use App\Http\Controllers\Web\Place\PlaceController;
-use App\Livewire\Web\Features\Place\PlaceList;
-use App\Livewire\Web\Features\Place\PlaceItem;
-use App\Livewire\Web\Features\Place\PlaceCategoryList;
-use App\Livewire\Web\Features\Album\AlbumList;
-use App\Livewire\Web\Features\Album\AlbumEventList;
-use App\Livewire\Web\Features\Album\AlbumGallery;
+use App\Http\Controllers\Web\Album\AlbumController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -39,6 +34,6 @@ Route::get('/places/{placeId}',  [PlaceController::class,'show'])->name('placeIt
 /**
  * Albums
  */
-Route::get('/albums', AlbumList::class)->name('albumList');
-Route::get('/albums/{albumId}', AlbumEventList::class)->name('albumEventList');
-Route::get('/albums/{albumId}/{eventId}', AlbumGallery::class)->name('albumGallery');
+Route::get('/albums', [AlbumController::class,'index'])->name('albumList');
+Route::get('/albums/{albumId}', [AlbumController::class,'event'])->name('albumEventList');
+Route::get('/albums/{albumId}/{eventId}', [AlbumController::class,'gallery'])->name('albumGallery');
