@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Web\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -17,7 +14,7 @@ class BlogController extends Controller
     public function index(): View
     {
         $posts = Post::allPosts();
-        $page =  (object)[
+        $page = (object)[
             'title' => 'Blog List title',
             'subtitle' => 'Blog List subtitle',
             'metaTitle' => 'Blog List - Page Meta Title',
@@ -25,24 +22,32 @@ class BlogController extends Controller
             'metaDescription' => 'Blog List - Page meta description',
         ];
 
-        return view('components.web.features.blog.list.blog-list',[
-            'posts' => $posts ,'page' => $page] );
+        return view(
+            'components.web.features.blog.list.blog-list',
+            [
+                'posts' => $posts,
+                'page' => $page
+            ]
+        );
     }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): View
     {
+        $post = Post::findPost($id);
+        $page = (object)[
+            'title' => $post['title'],
+            'subtitle' => $post['subTitle'],
+            'metaTitle' => $post['metaTitle'],
+            'keywords' => $post['keywords'] ?? null,
+            'metaDescription' => $post['metaDescription'],
+        ];
         return view('components.web.features.blog.item.blog-item', [
-            'page' => (object)[
-                'title' => 'Blog Item title',
-                'subtitle' => 'Blog Item subtitle',
-                'metaTitle' => 'Blog Item - Page Meta Title',
-                'keywords' => 'Blog, Item, Page, keywords',
-                'metaDescription' => 'Blog Item - Page meta description',
-            ]
+            'post' =>  (object)$post,
+            'page' => $page
         ]);
     }
 

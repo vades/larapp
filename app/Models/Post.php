@@ -7,16 +7,18 @@ use Illuminate\Support\Facades\File;
 
 class Post
 {
+    private static function fetchPosts(): string
+    {
+        return File::get(storage_path('app/data/blog-posts.json'));
+    }
     public static function allPosts(): array
     {
-        $contents = File::get(storage_path('app/data/blog-posts.json'));
-        return json_decode(json: $contents);
+        return json_decode(self::fetchPosts());
     }
 
     public static function findPost(string $slug): array|null
     {
-        $contents = File::get(storage_path('app/data/blog-posts.json'));
-        $posts = json_decode(json: $contents,associative: true);
+        $posts = json_decode(json: self::fetchPosts(),associative: true);
         return Arr::first( $posts, fn($item) => $item['slug'] == $slug);
     }
 }

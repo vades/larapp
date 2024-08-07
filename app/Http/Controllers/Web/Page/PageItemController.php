@@ -29,7 +29,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
             'metaTitle' => 'Page Meta Title',
             'keywords' => 'Page keywords',
             'metaDescription' => 'Page meta description',
-            'image' => asset('https://picsum.photos/300/300'),
+            'imageUrl' => asset('https://picsum.photos/300/300'),
         ];
 
         //$page = (object)$page;

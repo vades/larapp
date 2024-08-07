@@ -1,8 +1,8 @@
 <header class="flex flex-col md:flex-row md:items-start mb-4">
-    @if(isset($page->image))
+    @if(isset($page->imageUrl))
         <figure class="mb-3 md:mr-3">
             <img class="md:max-w-xs border-4 border-skin-muted drop-shadow-lg"
-                 src="{{$page->image}}"
+                 src="{{$page->imageUrl}}"
                  alt="{{ $page->title }}">
         </figure>
     @endif

@@ -2,7 +2,7 @@
     <x-web.partials.page-header :page="$page" />
      <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:gap-3 md:grid-cols-3 lg:grid-cols-4">
         @foreach($posts as $post)
-            <a href="{{ route('blogItem',  ['postId'=>'post-id']) }}">
+            <a href="{{ route('blogItem',  ['postId'=>$post->slug]) }}">
                 <x-web.features.blog.list.blog-list-card :post="$post" />
             </a>
 
