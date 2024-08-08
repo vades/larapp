@@ -7,5 +7,7 @@
     <article>
         {!! $post->content !!}
     </article>
-
+    <section>
+        <x-utils.prev-next class="flex justify-center mt-8" prevUrl="#" nextUrl="#"/>
+    </section>
 </x-web.layout>
