@@ -1,5 +1,5 @@
-<section {{$attributes->class([])}}>
-    <nav class="flex"
+
+    <nav  {{$attributes->class(['flex'])}}
          aria-label="Previous and next links">
         <!-- region previous  -->
         @if(isset($prevUrl))
@@ -40,4 +40,3 @@
         @endif
         <!-- endregion -->
     </nav>
-</section>

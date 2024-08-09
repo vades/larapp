@@ -22,7 +22,17 @@
     <article>
         {!! $post->content !!}
     </article>
+    @if(isset($post->inTags))
+        <section class="mt-4">
+            @foreach($post->inTags as $tag)
+                <a href="{{ $tag }}">
+                    <x-utils.badge>{{ $tag }}</x-utils.badge>
+                </a>
+            @endforeach
+        </section>
+    @endif
     <section>
         <x-utils.prev-next class="flex justify-center mt-8" prevUrl="#" nextUrl="#"/>
+
     </section>
 </x-web.layout>
