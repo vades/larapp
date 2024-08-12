@@ -2,39 +2,39 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
+
 class Category
 {
-    public static function allCategories(): array
+    private static function fetchBlogCategories(): string
     {
-        return [
-            (object)[
-                'id' => 1,
-                'title' => 'Category 1',
-                'description' => 'Category 1 description',
-                'image' => 'category1.jpg',
-            ],
-            (object)[
-                'id' => 2,
-                'title' => 'Category 2',
-                'description' => 'Category 2 description',
-                'image' => 'category2.jpg',
-            ],
-            (object)[
-                'id' => 3,
-                'title' => 'Category 3',
-                'description' => 'Category 3 description',
-                'image' => 'category3.jpg',
-            ],
-        ];
+        return File::get(storage_path('app/data/blog-categories.json'));
     }
 
-    public static function findCategory(int $id): object
+    private static function fetchPlaceCategories(): string
     {
-        return (object)[
-            'id' => $id,
-            'title' => 'Category ' . $id,
-            'description' => 'Category ' . $id . ' description',
-            'image' => 'category' . $id . '.jpg',
-        ];
+        return File::get(storage_path('app/data/place-categories.json'));
+    }
+    public static function allBlogCategories(): array
+    {
+        return json_decode(self::fetchBlogCategories());
+    }
+
+    public static function findBlogCategory(string $slug): object
+    {
+        $categories = json_decode(json: self::fetchBlogCategories(),associative: true);
+        return Arr::first( $categories, fn($item) => $item['slug'] == $slug);
+    }
+
+    public static function allPlaceCategories(): array
+    {
+        return json_decode(self::fetchPlaceCategories());
+    }
+
+    public static function findPlaceCategory(string $slug): object
+    {
+        $categories = json_decode(json: self::fetchPlaceCategories(),associative: true);
+        return Arr::first( $categories, fn($item) => $item['slug'] == $slug);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\View\View;
 
@@ -53,14 +54,19 @@ class BlogController extends Controller
 
     public function category()
     {
-        return view('components.web.features.blog.list.blog-list-category', [
-            'page' => (object)[
-                'title' => 'Blog Category title',
-                'subtitle' => 'Blog Category subtitle',
-                'metaTitle' => 'Blog Category - Page Meta Title',
-                'keywords' => 'Blog, Category, Page, keywords',
-                'metaDescription' => 'Blog Category - Page meta description',
-            ]
+        $categories = Category::allBlogCategories();
+        $page = (object)[
+            'title' => 'Blog Category title',
+            'subtitle' => 'Blog Category subtitle',
+            'metaTitle' => 'Blog Category - Page Meta Title',
+            'keywords' => 'Blog, Category, Page, keywords',
+            'metaDescription' => 'Blog Category - Page meta description',
+        ];
+
+        return view('components.web.features.blog.list.blog-list-category',  [
+            'categories' => $categories,
+            'page' => $page
+
         ]);
     }
 
