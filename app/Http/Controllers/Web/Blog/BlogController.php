@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Blog;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -72,14 +73,17 @@ class BlogController extends Controller
 
     public function tag()
     {
+        $tags = Tag::allBlogTags();
+        $page = (object)[
+            'title' => 'Blog Tag title',
+            'subtitle' => 'Blog Tag subtitle',
+            'metaTitle' => 'Blog Tag - Page Meta Title',
+            'keywords' => 'Blog, Tag, Page, keywords',
+            'metaDescription' => 'Blog Tag - Page meta description',
+        ];
         return view('components.web.features.blog.list.blog-list-tag', [
-            'page' => (object)[
-                'title' => 'Blog Tag title',
-                'subtitle' => 'Blog Tag subtitle',
-                'metaTitle' => 'Blog Tag - Page Meta Title',
-                'keywords' => 'Blog, Tag, Page, keywords',
-                'metaDescription' => 'Blog Tag - Page meta description',
-            ]
+            'page' => $page,
+            'tags' => $tags
         ]);
     }
 }
