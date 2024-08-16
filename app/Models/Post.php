@@ -28,12 +28,12 @@ class Post
     }
     public static function allPlacePosts(): array
     {
-        return json_decode(self::fetchBlogPosts());
+        return json_decode(self::fetchPlacePosts());
     }
 
     public static function findPlacePost(string $slug): array|null
     {
-        $posts = json_decode(json: self::fetchBlogPosts(), associative: true);
+        $posts = json_decode(json: self::fetchPlacePosts(), associative: true);
         return Arr::first( $posts, fn($item) => $item['slug'] == $slug);
     }
 }
