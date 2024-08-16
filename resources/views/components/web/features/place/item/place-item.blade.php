@@ -3,12 +3,24 @@
               :keywords="$page->keywords">
 
     <x-web.features.place.item.place-item-header :place="$place" class="mb-8" />
-    <x-web.features.place.item.place-item-gallery />
-    <x-web.features.place.item.place-item-highlight />
-    <x-web.features.place.item.place-item-related />
+    @if(isset($images))
+    <x-web.features.place.item.place-item-gallery :images="$images" />
+    @endif
+
+    @if(isset($highlights))
+    <x-web.features.place.item.place-item-highlight :highlights="$highlights" />
+    @endif
+
+    @if(isset($related))
+    <x-web.features.place.item.place-item-related :related="$related" />
+    @endif
+
+    @if(isset($place->content))
     <section>
         {!! $place->content !!}
     </section>
+    @endif
+
     <x-utils.prev-next class="flex justify-center mt-8"
                        prevUrl="#"
                        nextUrl="#" />
