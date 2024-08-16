@@ -1,0 +1,1 @@
+<x-web.partials.page-header :page="$page" />
