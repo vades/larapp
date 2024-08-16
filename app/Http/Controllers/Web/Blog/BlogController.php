@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index(): View
     {
-        $posts = Post::allPosts();
+        $posts = Post::allBlogPosts();
         $page = (object)[
             'title' => 'Blog List title',
             'subtitle' => 'Blog List subtitle',
@@ -39,7 +39,7 @@ class BlogController extends Controller
      */
     public function show(string $id): View
     {
-        $post = Post::findPost($id);
+        $post = Post::findBlogPost($id);
         $page = (object)[
             'title' => $post['title'],
             'subtitle' => $post['subTitle'],
