@@ -4,7 +4,7 @@
 
     <x-web.features.place.item.place-item-header :place="$place" class="mb-8" />
     @if(isset($images))
-    <x-web.features.place.item.place-item-gallery :images="$images" />
+    <x-web.features.place.item.place-item-gallery :images="$images" class="mb-8" />
     @endif
 
     @if(isset($highlights))
