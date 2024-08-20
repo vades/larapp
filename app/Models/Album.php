@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\File;
+
 class Album
 {
   public static function allAlbums(): array
@@ -74,25 +76,7 @@ class Album
 
   public static function allPhotos(): array
   {
-    return [
-      (object)[
-        'id' => 1,
-        'title' => 'Photo 1',
-        'description' => 'Photo 1 description',
-        'image' => 'photo1.jpg',
-      ],
-      (object)[
-        'id' => 2,
-        'title' => 'Photo 2',
-        'description' => 'Photo 2 description',
-        'image' => 'photo2.jpg',
-      ],
-      (object)[
-        'id' => 3,
-        'title' => 'Photo 3',
-        'description' => 'Photo 3 description',
-        'image' => 'photo3.jpg',
-      ],
-    ];
+      $fetchedPhotos = File::get(storage_path('app/data/album-photos.json'));
+      return json_decode($fetchedPhotos);
   }
 }

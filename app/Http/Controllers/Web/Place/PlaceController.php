@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Place;
 
 use App\Http\Controllers\Controller;
+use App\Models\Album;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
@@ -33,6 +34,8 @@ class PlaceController extends Controller
      */
     public function show(string $id): View{
         $place = Post::findPlacePost($id);
+        $images = Album::allPhotos();
+        $highlights = Post::allPlacePosts();
         $page = (object)[
             'title' => $place['title'],
             'subtitle' => $place['subTitle'],
@@ -41,7 +44,12 @@ class PlaceController extends Controller
             'metaDescription' => $place['metaDescription'],
         ];
         return view('components.web.features.place.item.place-item', [
-            'page' => $page,'place' =>  (object)$place]);
+            'page' => $page,
+            'place' =>  (object)$place,
+            'images' => $images,
+            'highlights' => $highlights,
+            'related' => $highlights]
+        );
     }
 
     public function category(): View{

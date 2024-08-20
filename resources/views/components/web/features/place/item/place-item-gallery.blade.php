@@ -6,5 +6,4 @@
       <img class="h-auto max-w-full rounded" src="{{ $image->thumbnail }}" alt="{{ $image->title }}"/>
    </figure>
    @endforeach
-                                       }
 </section>
