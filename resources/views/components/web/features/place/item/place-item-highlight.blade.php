@@ -8,8 +8,8 @@
                          src="{{$place->imageUrl}}"
                          alt="{{ $place->title}}">
                 </x-slot>
-                <x-slot name="body" class="p-3">
-                    <h2 class="text-lg font-bold mb-3">{{ $place->title }}</h2>
+                <x-slot name="body" class="p-2 text-center">
+                    <h3 class="text-lg mb-3">{{ $place->title }}</h3>
                 </x-slot>
             </x-utils.card>
         </a>

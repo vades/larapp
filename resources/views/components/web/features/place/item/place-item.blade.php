@@ -7,19 +7,22 @@
     <x-web.features.place.item.place-item-gallery :images="$images" class="mb-8" />
     @endif
 
+    @if(isset($place->content))
+        <section class="mb-8">
+            {!! $place->content !!}
+        </section>
+    @endif
+
     @if(isset($highlights))
-    <x-web.features.place.item.place-item-highlight :highlights="$highlights" />
+        <h2 class="text-lg mb-4">Altstadt - St. Lorenz highlights</h2>
+    <x-web.features.place.item.place-item-highlight :highlights="$highlights" class="mb-8" />
     @endif
 
     @if(isset($related))
-    <x-web.features.place.item.place-item-related :related="$related" />
+        <h2 class="text-lg mb-4">Other places in category</h2>
+    <x-web.features.place.item.place-item-related :related="$related" class="mb-8" />
     @endif
 
-    @if(isset($place->content))
-    <section>
-        {!! $place->content !!}
-    </section>
-    @endif
 
     <x-utils.prev-next class="flex justify-center mt-8"
                        prevUrl="#"

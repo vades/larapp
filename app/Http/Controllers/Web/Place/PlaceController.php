@@ -35,7 +35,7 @@ class PlaceController extends Controller
     public function show(string $id): View{
         $place = Post::findPlacePost($id);
         $images = Album::allPhotos();
-        $highlights = Post::allPlacePosts();
+        $places = Post::allPlacePosts();
         $page = (object)[
             'title' => $place['title'],
             'subtitle' => $place['subTitle'],
@@ -47,8 +47,8 @@ class PlaceController extends Controller
             'page' => $page,
             'place' =>  (object)$place,
             'images' => $images,
-            'highlights' => $highlights,
-            'related' => $highlights]
+            'highlights' => $places,
+            'related' => $places]
         );
     }
 
