@@ -25,7 +25,7 @@
     @if(isset($post->inTags))
         <section class="mt-4">
             @foreach($post->inTags as $tag)
-                <a href="{{ $tag }}">
+                <a href="{{ route('blogList', ['tag' => $tag]) }}">
                     <x-utils.badge>{{ $tag }}</x-utils.badge>
                 </a>
             @endforeach

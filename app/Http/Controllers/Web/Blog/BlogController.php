@@ -25,7 +25,7 @@ class BlogController extends Controller
         ];
 
         return view(
-            'components.web.features.blog.list.blog-list',
+            'components.web.features.blog.blog-list',
             [
                 'posts' => $posts,
                 'page' => $page
@@ -47,7 +47,7 @@ class BlogController extends Controller
             'keywords' => $post['keywords'] ?? null,
             'metaDescription' => $post['metaDescription'],
         ];
-        return view('components.web.features.blog.item.blog-item', [
+        return view('components.web.features.blog.blog-item', [
             'post' =>  (object)$post,
             'page' => $page
         ]);
@@ -64,7 +64,7 @@ class BlogController extends Controller
             'metaDescription' => 'Blog Category - Page meta description',
         ];
 
-        return view('components.web.features.blog.list.blog-list-category',  [
+        return view('components.web.features.blog.blog-list-category',  [
             'categories' => $categories,
             'page' => $page
 
@@ -81,7 +81,7 @@ class BlogController extends Controller
             'keywords' => 'Blog, Tag, Page, keywords',
             'metaDescription' => 'Blog Tag - Page meta description',
         ];
-        return view('components.web.features.blog.list.blog-list-tag', [
+        return view('components.web.features.blog.blog-list-tag', [
             'page' => $page,
             'tags' => $tags
         ]);
