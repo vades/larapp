@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Web\Place;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Album;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\View\View;
 

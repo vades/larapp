@@ -1,9 +1,9 @@
 <?php
-use App\Http\Controllers\Web\Home\HomeItemController;
-use App\Http\Controllers\Web\Page\PageItemController;
-use App\Http\Controllers\Web\Blog\BlogController;
-use App\Http\Controllers\Web\Place\PlaceController;
-use App\Http\Controllers\Web\Album\AlbumController;
+use App\Http\Controllers\Web\HomeItemController;
+use App\Http\Controllers\Web\PageItemController;
+use App\Http\Controllers\Web\BlogController;
+use App\Http\Controllers\Web\PlaceController;
+use App\Http\Controllers\Web\AlbumController;
 use Illuminate\Support\Facades\Route;
 
 /**
