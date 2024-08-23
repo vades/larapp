@@ -23,7 +23,7 @@ class PlaceController extends Controller
             'keywords' => 'Place, List, ,Page, keywords',
             'metaDescription' => 'Place List - Page meta description',
         ];
-        return view('components.web.features.place.list.place-list', [
+        return view('components.web.features.place.place-list', [
             'page' => $page,
             'places' => $places
         ]);
@@ -43,7 +43,7 @@ class PlaceController extends Controller
             'keywords' => $place['keywords'] ?? null,
             'metaDescription' => $place['metaDescription'],
         ];
-        return view('components.web.features.place.item.place-item', [
+        return view('components.web.features.place.place-item', [
             'page' => $page,
             'place' =>  (object)$place,
             'images' => $images,
@@ -61,7 +61,7 @@ class PlaceController extends Controller
             'keywords' => 'Place, Category, Page, keywords',
             'metaDescription' => 'Place Category - Page meta description',
         ];
-        return view('components.web.features.place.list.place-list-category', [
+        return view('components.web.features.place.place-list-category', [
             'page' => $page,'categories' => $categories]);
     }
 }
