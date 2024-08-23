@@ -20,7 +20,7 @@ class AlbumController extends Controller
             'metaDescription' => 'Album List - Page meta description',
         ];
 
-        return view('components.web.features.album.list.album-list',[
+        return view('components.web.features.album.album-list',[
             'albums' => $albums ,'page' => $page] );
     }
 
@@ -34,7 +34,7 @@ class AlbumController extends Controller
             'keywords' => 'Event, List, ,Page, keywords',
             'metaDescription' => 'Event List - Page meta description',
         ];
-        return view('components.web.features.album.event.event-list',  [
+        return view('components.web.features.album.event-list',  [
             'events' => $events,
             'page' => $page
         ]);
@@ -50,7 +50,7 @@ class AlbumController extends Controller
             'keywords' => 'Album, Gallery, Page, keywords',
             'metaDescription' => 'Album Gallery - Page meta description',
         ];
-        return view('components.web.features.album.gallery.gallery-list', [
+        return view('components.web.features.album.gallery-list', [
             'images' => $images,
             'page' => $page
         ]);
