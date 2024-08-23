@@ -24,29 +24,35 @@ class AlbumController extends Controller
             'albums' => $albums ,'page' => $page] );
     }
 
-    public function event(string $id)
+    public function event(string $id): View
     {
-        return view('components.web.features.album.event.event-list', [
-            'page' => (object)[
-                'title' => 'Event Item title',
-                'subtitle' => 'Event Item subtitle',
-                'metaTitle' => 'Event Item - Page Meta Title',
-                'keywords' => 'Event, Item, Page, keywords',
-                'metaDescription' => 'Album Item - Page meta description',
-            ]
+        $events = Album::allEvents();
+        $page = (object)[
+            'title' => 'Event List title',
+            'subtitle' => 'Event List subtitle',
+            'metaTitle' => 'Event List - Page Meta Title',
+            'keywords' => 'Event, List, ,Page, keywords',
+            'metaDescription' => 'Event List - Page meta description',
+        ];
+        return view('components.web.features.album.event.event-list',  [
+            'events' => $events,
+            'page' => $page
         ]);
     }
 
-    public function gallery()
+    public function gallery(): View
     {
+        $images = Album::allPhotos();
+        $page = (object)[
+            'title' => 'Album Gallery title',
+            'subtitle' => 'Album Gallery subtitle',
+            'metaTitle' => 'Album Gallery - Page Meta Title',
+            'keywords' => 'Album, Gallery, Page, keywords',
+            'metaDescription' => 'Album Gallery - Page meta description',
+        ];
         return view('components.web.features.album.gallery.gallery-list', [
-            'page' => (object)[
-                'title' => 'Album Gallery title',
-                'subtitle' => 'Album Gallery subtitle',
-                'metaTitle' => 'Album Gallery - Page Meta Title',
-                'keywords' => 'Album, Gallery, Page, keywords',
-                'metaDescription' => 'Album Gallery - Page meta description',
-            ]
+            'images' => $images,
+            'page' => $page
         ]);
     }
 }
