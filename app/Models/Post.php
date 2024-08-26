@@ -31,6 +31,11 @@ class Post
         return json_decode(self::fetchPlacePosts());
     }
 
+    public static function allPlaceFeaturedPosts(): array
+    {
+        return json_decode(self::fetchPlacePosts());
+    }
+
     public static function findPlacePost(string $slug): array|null
     {
         $posts = json_decode(json: self::fetchPlacePosts(), associative: true);
