@@ -1,7 +1,6 @@
 <x-web.layout>
-
-
-<div>
-    Very little is needed to make a happy life. - Marcus Aurelius 2
-</div>
+    <x-web.features.home.partials.jumbotron />
+    <x-web.features.home.partials.place-featured />
+    <x-web.features.home.partials.place-list />
+    <x-web.features.home.partials.blog-list />
 </x-web.layout>

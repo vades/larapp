@@ -1,0 +1,3 @@
+<div>
+    Place featured
+</div>
