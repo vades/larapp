@@ -1,7 +1,4 @@
-@php
-    $classes = 'flex flex-col justify-between h-full';
-@endphp
-<article {{$attributes->class([$classes])}}>
+<article {{$attributes->class(['flex flex-col justify-between h-full'])}}>
     @isset($header)
         <header {{$header->attributes->class([])}}>{{$header}}</header>
     @endisset
