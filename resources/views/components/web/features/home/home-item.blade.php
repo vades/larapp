@@ -15,4 +15,9 @@
         <x-web.features.home.partials.blog-list class="mb-8" :posts="$posts" />
     @endif
 
+    @if(isset($images))
+        <h2 class="text-lg mb-4">Ut enim ad minim veniam</h2>
+        <x-web.features.home.partials.gallery class="mb-8" :images="$images" />
+    @endif
+
 </x-web.layout>
