@@ -1,3 +1,4 @@
-<div>
-    <h1>albumGallery</h1>
-</div>
+<section>
+    <livewire:web.features.album.gallery.page-header />
+    <livewire:web.features.album.gallery.main-content />
+</section>

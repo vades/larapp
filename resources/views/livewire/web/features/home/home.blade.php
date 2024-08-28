@@ -4,6 +4,7 @@
     </h1>
     <div class="bg-skin-info">
         This is home page
+        {!! $html !!}
     </div>
     <div x-data="{ open: false }">
         <button @click="open = true">Show More...</button>
