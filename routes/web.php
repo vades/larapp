@@ -14,7 +14,7 @@ Route::get('/', HomeItemController::class)->name('home');
 /**
  * Pages
  */
-Route::get('/page/{pageId}', PageItemController::class)->name('pageItem');
+Route::get('/pages/{pageId}', PageItemController::class)->name('pageItem');
 
 /**
  * Blog
