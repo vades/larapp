@@ -8,6 +8,18 @@
 - `php artisan make:livewire dir.component-name --inline` Create a new inline Livewire component
 - `php artisan livewire:stubs` Publish Livewire stubs
 - `php artisan livewire:layout` Create a new layout file
+
+```
+-c, --controller Create a new controller for the model
+-f, --factory Create a new factory for the model
+--force Create the class even if the model already exists
+-m, --migration Create a new migration file for the model
+-s, --seed Create a new seeder file for the model
+-p, --pivot Indicates if the generated model should be a custom intermediate table model
+-r, --resource Indicates if the generated controller should be a resource controller
+For More Help
+php artisan make:model Todo -help
+```
  
 ```bash
 php artisan cache:clear
