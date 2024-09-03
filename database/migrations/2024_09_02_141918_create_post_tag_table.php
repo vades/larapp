@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('post_tag', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('post_id');
+            $table->bigInteger('tag_id');
+            $table->unique(['post_id','tag_id']);
         });
     }
 

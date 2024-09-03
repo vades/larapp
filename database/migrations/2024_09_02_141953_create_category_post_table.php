@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('category_post', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('category_id');
+            $table->bigInteger('post_id');
+            $table->unique(['category_id','post_id']);
         });
     }
 
