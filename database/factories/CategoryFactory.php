@@ -17,7 +17,17 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'project_id' => 1,
+            'parent_id' => 1,
+            'is_published' => fake()->numberBetween(0, 1),
+            'position' => fake()->numberBetween(0, 10),
+            'views_count' => fake()->numberBetween(5000, 10000),
+            'slug' => fake()->unique()->slug(),
+            'lang' => 'en',
+            'title' => fake()->sentence(),
+            'description' => fake()->text(),
+            'image_url' => fake()->imageUrl(),
+            'options' => json_encode(['key' => 'value']),
         ];
     }
 }

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('title', 255);
             $table->text('description')->nullable();
             $table->text('image_url')->nullable();
-            $table->json('options');
+            $table->json('options')->default('{}');
             $table->timestamps();
             $table->softDeletes();
             $table->unique(['slug','project_id']);

@@ -17,7 +17,22 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'project_id' => 1,
+            'parent_id' => 1,
+            'user_id' => 1,
+            'is_featured' => fake()->numberBetween(0, 1),
+            'post_type' => fake()->randomElement(['post', 'page','place']),
+            'post_status' => fake()->randomElement(['draft', 'published','pending']),
+            'position' => fake()->numberBetween(0, 10),
+            'views_count' => fake()->numberBetween(5000, 10000),
+            'slug' => fake()->unique()->slug(),
+            'lang' => 'en',
+            'title' => fake()->sentence(),
+            'subtitle' => fake()->sentence(),
+            'description' => fake()->text(),
+            'content' => fake()->realText(),
+            'image_url' => fake()->imageUrl(),
+            'options' => json_encode(['key' => 'value']),
         ];
     }
 }
