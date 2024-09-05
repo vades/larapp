@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('lang', 10);
             $table->string('title', 255);
             $table->text('description')->nullable();
+            $table->text('image_url')->nullable();
             $table->json('options');
             $table->timestamps();
             $table->softDeletes();

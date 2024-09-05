@@ -26,9 +26,10 @@ return new class extends Migration
             $table->string('slug', 255)->unique();
             $table->string('lang', 10);
             $table->string('title', 255);
-            $table->string('subtitle', 255);
+            $table->string('subtitle', 255)->nullable();
             $table->text('description')->nullable();
             $table->text('content')->nullable();
+            $table->text('image_url')->nullable();
             $table->json('options');
             $table->timestamps();
             $table->softDeletes();

@@ -8,8 +8,11 @@
 - `php artisan make:livewire dir.component-name --inline` Create a new inline Livewire component
 - `php artisan livewire:stubs` Publish Livewire stubs
 - `php artisan livewire:layout` Create a new layout file
+- `php artisan make:seeder SeederName` Create a new middleware
 - `php artisan migrate:reset`
 - `php artisan migrate:refresh`
+- `php artisan migrate:refresh --seed --force`
+- `php artisan db:seed`
 
 ```
 -c, --controller Create a new controller for the model
