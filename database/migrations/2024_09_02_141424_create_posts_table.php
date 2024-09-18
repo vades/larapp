@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('project_id')->default(0);
-            $table->bigInteger('user_id')->default(0);
+            $table->foreignId('user_id')->default(0);
             $table->bigInteger('parent_id')->default(0);
             $table->boolean('is_featured')->default(0);
             $table->string('post_type', 20)->default('post');
@@ -31,6 +31,8 @@ return new class extends Migration
             $table->json('options')->default('{}');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unique(['slug','project_id']);
         });
     }
