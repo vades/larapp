@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     {
         return [
             'project_id' => 1,
-            'parent_id' => 1,
+            'parent_id' => 0,
             'is_published' => fake()->numberBetween(0, 1),
             'position' => fake()->numberBetween(0, 10),
             'views_count' => fake()->numberBetween(5000, 10000),
