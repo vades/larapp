@@ -17,7 +17,6 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'project_id' => 1,
             'parent_id' => 0,
             'user_id' => 1,
             'is_featured' => fake()->numberBetween(0, 1),

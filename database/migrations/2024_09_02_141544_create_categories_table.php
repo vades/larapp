@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('project_id')->default(0);
             $table->bigInteger('parent_id')->default(0);
             $table->boolean('is_published')->default(0);
             $table->integer('position')->default(0);
@@ -25,8 +24,6 @@ return new class extends Migration
             $table->text('image_url')->nullable();
             $table->json('options')->default('{}');
             $table->timestamps();
-            $table->softDeletes();
-            $table->unique(['slug','project_id']);
         });
     }
 

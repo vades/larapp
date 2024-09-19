@@ -13,6 +13,11 @@
 - `php artisan migrate:refresh`
 - `php artisan migrate:refresh --seed --force`
 - `php artisan db:seed`
+- `php artisan cache:clear`
+- `php artisan view:clear`
+- `php artisan config:clear`
+- `php artisan route:clear`
+- `composer dump-autoload`
 
 ```
 -c, --controller Create a new controller for the model
