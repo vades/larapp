@@ -2,39 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Category
+class Category extends Model
 {
-    private static function fetchBlogCategories(): string
-    {
-        return File::get(storage_path('app/data/blog-categories.json'));
-    }
+    use HasFactory;
 
-    private static function fetchPlaceCategories(): string
+    public function posts()
     {
-        return File::get(storage_path('app/data/place-categories.json'));
-    }
-    public static function allBlogCategories(): array
-    {
-        return json_decode(self::fetchBlogCategories());
-    }
-
-    public static function findBlogCategory(string $slug): object
-    {
-        $categories = json_decode(json: self::fetchBlogCategories(),associative: true);
-        return Arr::first( $categories, fn($item) => $item['slug'] == $slug);
-    }
-
-    public static function allPlaceCategories(): array
-    {
-        return json_decode(self::fetchPlaceCategories());
-    }
-
-    public static function findPlaceCategory(string $slug): object
-    {
-        $categories = json_decode(json: self::fetchPlaceCategories(),associative: true);
-        return Arr::first( $categories, fn($item) => $item['slug'] == $slug);
+        return $this->belongsToMany(Post::class);
     }
 }

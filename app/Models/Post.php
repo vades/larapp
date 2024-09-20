@@ -2,43 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Post
+class Post extends Model
 {
-    private static function fetchBlogPosts(): string
+    use HasFactory;
+
+    public function project()
     {
-        return File::get(storage_path('app/data/blog-posts.json'));
-    }
-    public static function allBlogPosts(): array
-    {
-        return json_decode(self::fetchBlogPosts());
+        return $this->belongsTo(Project::class);
     }
 
-    public static function findBlogPost(string $slug): array|null
+    public function user()
     {
-        $posts = json_decode(json: self::fetchBlogPosts(), associative: true);
-        return Arr::first( $posts, fn($item) => $item['slug'] == $slug);
+        return $this->belongsTo(User::class);
     }
 
-    private static function fetchPlacePosts(): string
+    public function categories()
     {
-        return File::get(storage_path('app/data/place-posts.json'));
-    }
-    public static function allPlacePosts(): array
-    {
-        return json_decode(self::fetchPlacePosts());
-    }
-
-    public static function allPlaceFeaturedPosts(): array
-    {
-        return json_decode(self::fetchPlacePosts());
-    }
-
-    public static function findPlacePost(string $slug): array|null
-    {
-        $posts = json_decode(json: self::fetchPlacePosts(), associative: true);
-        return Arr::first( $posts, fn($item) => $item['slug'] == $slug);
+        return $this->belongsToMany(Category::class, 'category_post');
     }
 }
