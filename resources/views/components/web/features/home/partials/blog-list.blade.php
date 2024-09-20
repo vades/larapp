@@ -5,7 +5,7 @@
             <x-utils.panel class="bg-skin-base">
                 <x-slot name="header">
                     <figure class="mb-3 md:mr-3">
-                        <img src="{{$item->imageUrl}}"
+                        <img src="{{$item->image_url}}"
                              alt="{{ $item->title}}">
                     </figure>
 

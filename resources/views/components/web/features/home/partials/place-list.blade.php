@@ -5,7 +5,7 @@
             <x-utils.card class="bg-skin-base">
                 <x-slot name="header">
                     <img class="mr-auto ml-auto"
-                         src="{{$item->imageUrl}}"
+                         src="{{$item->image_url}}"
                          alt="{{ $item->title}}">
                 </x-slot>
                 <x-slot name="body"
