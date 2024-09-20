@@ -13,6 +13,6 @@ class ProjectScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->where('project_id', '=',1);
+        $builder->where('project_id', '=', config('myapp.projectId'));
     }
 }
