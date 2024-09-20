@@ -22,6 +22,7 @@ class CategoryFactory extends Factory
             'is_published' => fake()->numberBetween(0, 1),
             'position' => fake()->numberBetween(0, 10),
             'views_count' => fake()->numberBetween(5000, 10000),
+            'category_type' => fake()->randomElement(['post', 'page','place']),
             'slug' => fake()->unique()->slug(),
             'lang' => 'en',
             'title' => fake()->sentence(),
