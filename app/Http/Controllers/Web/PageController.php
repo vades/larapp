@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
-class PageItemController extends Controller
+class PageController extends Controller
 {
     /**
      * Handle the incoming request.

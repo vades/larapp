@@ -8,16 +8,16 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class HomeItemController extends Controller
+class HomeController extends Controller
 {
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request): View
     {
-        $placesFeatured = Post::allPlaceFeaturedPosts();
-        $places = Post::allPlacePosts();
-        $posts = Post::allBlogPosts();
+        $placesFeatured = Post::all();
+        $places =[];// Post::allPlacePosts();
+        $posts = [];//Post::allBlogPosts();
         $images = Album::allPhotos();
         return view('components.web.features.home.home-item', [
             'placesFeatured' => $placesFeatured,

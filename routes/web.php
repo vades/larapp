@@ -1,6 +1,6 @@
 <?php
-use App\Http\Controllers\Web\HomeItemController;
-use App\Http\Controllers\Web\PageItemController;
+use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\PageController;
 use App\Http\Controllers\Web\BlogController;
 use App\Http\Controllers\Web\PlaceController;
 use App\Http\Controllers\Web\AlbumController;
@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Route;
 /**
  * Home
  */
-Route::get('/', HomeItemController::class)->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 /**
  * Pages
  */
-Route::get('/pages/{pageId}', PageItemController::class)->name('pageItem');
+Route::get('/pages/{pageId}', PageController::class)->name('pageItem');
 
 /**
  * Blog
