@@ -32,7 +32,9 @@
 
         @endforeach
     </section>
-    <section>
-        <x-utils.pagination class="flex justify-center mt-8" />
+    <section class="flex justify-center mt-8">
+        {!! $posts->links() !!}
+
+        {{-- <x-utils.pagination class="flex justify-center mt-8" /> --}}
     </section>
 </x-web.layout>

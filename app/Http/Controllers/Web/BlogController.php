@@ -16,7 +16,7 @@ class BlogController extends Controller
     public function index(): View
     {
         $posts = Post::isPublished()->isPost()->orderBy('created_at','desc')
-                     ->take(20)->get();
+                     ->paginate(20);
         $page = (object)[
             'title' => 'Blog List title',
             'subtitle' => 'Blog List subtitle',
@@ -57,7 +57,7 @@ class BlogController extends Controller
 
     public function category()
     {
-        $categories = Category::getBlog()->with('posts')->get();
+        $categories = Category::getBlog()->withCount('posts')->get();
         $page = (object)[
             'title' => 'Blog Category title',
             'subtitle' => 'Blog Category subtitle',
