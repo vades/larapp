@@ -1,3 +1,4 @@
+@inject('carbon', 'Carbon\Carbon')
 @props(['posts'])
 <section {{$attributes->class(['md:grid md:grid-cols-2 md:gap-4'])}}>
     @foreach($posts as $item)
@@ -12,7 +13,9 @@
                 </x-slot>
                 <x-slot name="body"
                         class="p-3">
+
                     <h3 class="text-lg mb-3">{{ $item->title }}</h3>
+                    <div class="mb-3">{{ $carbon::parse($item->created_at)->format('Y-m-d') }}</div>
                     <div class="mb-3">{{ $item->description }}</div>
                 </x-slot>
             </x-utils.panel>
