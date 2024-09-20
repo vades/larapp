@@ -13,9 +13,8 @@
                 </x-slot>
                 <x-slot name="body"
                         class="p-3">
-
-                    <h3 class="text-lg mb-3">{{ $item->title }}</h3>
                     <div class="mb-3">{{ $carbon::parse($item->created_at)->format('Y-m-d') }}</div>
+                    <h3 class="text-lg mb-3">{{ $item->title }}</h3>
                     <div class="mb-3">{{ $item->description }}</div>
                 </x-slot>
             </x-utils.panel>

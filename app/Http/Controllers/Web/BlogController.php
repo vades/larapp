@@ -15,7 +15,8 @@ class BlogController extends Controller
      */
     public function index(): View
     {
-        $posts = Post::allBlogPosts();
+        $posts = Post::isPublished()->isPost()->orderBy('created_at','desc')
+                     ->take(20)->get();
         $page = (object)[
             'title' => 'Blog List title',
             'subtitle' => 'Blog List subtitle',
@@ -39,7 +40,8 @@ class BlogController extends Controller
      */
     public function show(string $id): View
     {
-        $post = Post::findBlogPost($id);
+        $post =  Post::isPublished()->isPost()->where('slug', $id)->with('user')->firstOrFail();
+        //dd($post->user->toArray());
         $page = (object)[
             'title' => $post['title'],
             'subtitle' => $post['subTitle'],
