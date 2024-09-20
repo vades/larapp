@@ -57,7 +57,7 @@ class BlogController extends Controller
 
     public function category()
     {
-        $categories = Category::allBlogCategories();
+        $categories = Category::getBlog()->with('posts')->get();
         $page = (object)[
             'title' => 'Blog Category title',
             'subtitle' => 'Blog Category subtitle',

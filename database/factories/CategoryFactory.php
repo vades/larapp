@@ -25,7 +25,7 @@ class CategoryFactory extends Factory
             'category_type' => fake()->randomElement(['post', 'page','place']),
             'slug' => fake()->unique()->slug(),
             'lang' => 'en',
-            'title' => fake()->sentence(),
+            'title' => fake()->unique()->word(),
             'description' => fake()->text(),
             'image_url' => fake()->imageUrl(),
             'options' => json_encode(['key' => 'value']),
