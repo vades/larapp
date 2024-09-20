@@ -4,8 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,18 +20,23 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             PostSeeder::class,
         ]);
+        $timestamp = Carbon::now()->format('Y-m-d H:i:s');
         foreach(range(1, 100) as $i)
         {
             DB::table('category_post')->insert([
                                                    'category_id' => rand(1,10),
-                                                   'post_id' => $i
+                                                   'post_id' => $i,
+                                                   'created_at' => $timestamp,
+                                                   'updated_at' => $timestamp,
                                                ]);
         }
         foreach(range(1, 100) as $i)
         {
             DB::table('post_tag')->insert([
                                                    'tag_id' => rand(1,20),
-                                                   'post_id' => $i
+                                                   'post_id' => $i,
+                                              'created_at' => $timestamp,
+                                              'updated_at' => $timestamp,
                                                ]);
         }
     }
