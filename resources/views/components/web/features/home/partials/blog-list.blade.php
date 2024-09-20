@@ -1,6 +1,6 @@
 @props(['posts'])
 <section {{$attributes->class(['md:grid md:grid-cols-2 md:gap-4'])}}>
-    @foreach(collect($posts)->take(4) as $item)
+    @foreach($posts as $item)
         <a href="{{ route('blogItem',  ['postId'=>$item->slug]) }}">
             <x-utils.panel class="bg-skin-base">
                 <x-slot name="header">
