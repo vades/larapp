@@ -17,6 +17,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
+            'project_id' => 1,
             'parent_id' => 0,
             'is_published' => fake()->numberBetween(0, 1),
             'position' => fake()->numberBetween(0, 10),

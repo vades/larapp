@@ -1,17 +1,18 @@
 <?php
 
+
 namespace Database\Seeders;
 
-use App\Models\Post;
+use App\Models\Project;
 use Illuminate\Database\Seeder;
 
-class PostSeeder extends Seeder
+class ProjectSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-       Post::factory(500)->create();
+        Project::factory(3)->create();
     }
 }

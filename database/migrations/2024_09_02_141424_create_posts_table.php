@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('project_id')->default(0);
             $table->foreignId('user_id')->default(0);
             $table->bigInteger('parent_id')->default(0);
             $table->boolean('is_featured')->default(0);
