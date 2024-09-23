@@ -30,7 +30,7 @@ class Post extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'post_tag');
+        return $this->belongsToMany(Tag::class);
     }
 
     public function scopePublishedByType(Builder $query, string $postType = 'post'): void
