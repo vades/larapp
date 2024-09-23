@@ -18,6 +18,9 @@ class TagFactory extends Factory
     {
         return [
             'project_id' => 1,
+            'is_published' => 1,
+            'tag_type' => fake()->randomElement(['post', 'place']),
+            'views_count' => fake()->numberBetween(5000, 10000),
             'name' => fake()->unique()->word(),
         ];
     }

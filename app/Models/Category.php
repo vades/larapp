@@ -20,8 +20,6 @@ class Category extends Model
     public function scopePublishedByType(Builder $query, string $categoryType = 'post'): void
     {
         $query->where('is_published', 1)
-              ->where('category_type', $categoryType)
-              ->orderBy('position')
-              ->orderBy('title');
+              ->where('category_type', $categoryType);
     }
 }

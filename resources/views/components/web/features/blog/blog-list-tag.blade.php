@@ -5,7 +5,7 @@
     @foreach($tags as $tag)
         <a href="{{ route('blogList', ['tag' => $tag->name]) }}">
             <x-utils.badge> {{ $tag->name }}
-                <x-slot name="notify">{{ $tag->numOfPosts }}</x-slot>
+                <x-slot name="notify">{{ $tag->posts_count }}</x-slot>
             </x-utils.badge>
 
         </a>

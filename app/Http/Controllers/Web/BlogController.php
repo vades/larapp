@@ -57,7 +57,7 @@ class BlogController extends Controller
 
     public function category()
     {
-        $categories = Category::publishedByType()->withCount('posts')->get();
+        $categories = Category::publishedByType()->withCount('posts')->where('posts_count','>',0)->get();
         $page = (object)[
             'title' => 'Blog Category title',
             'subtitle' => 'Blog Category subtitle',
@@ -75,7 +75,7 @@ class BlogController extends Controller
 
     public function tag()
     {
-        $tags = Tag::allBlogTags();
+        $tags = Tag::publishedByType()->withCount('posts')->where('posts_count','>',0)->get();
         $page = (object)[
             'title' => 'Blog Tag title',
             'subtitle' => 'Blog Tag subtitle',
