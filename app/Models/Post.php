@@ -28,22 +28,10 @@ class Post extends Model
         return $this->belongsToMany(Category::class, 'category_post');
     }
 
-    public function scopeIsPublished(Builder $query): void
+    public function scopePublishedByType(Builder $query, string $postType = 'post'): void
     {
-        $query->where('post_status', 'published');
-    }
-    public function scopeIsPlace(Builder $query): void
-    {
-        $query->where('post_type', 'place');
-    }
-
-    public function scopeIsPost(Builder $query): void
-    {
-        $query->where('post_type', 'post');
-    }
-    public function scopeIsPage(Builder $query): void
-    {
-        $query->where('post_type', 'page');
+        $query->where('post_status', 'published')
+            ->where('post_type', $postType);
     }
     public function scopeIsFeatured(Builder $query): void
     {

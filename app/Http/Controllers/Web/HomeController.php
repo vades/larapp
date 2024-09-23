@@ -15,11 +15,11 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request): View
     {
-        $placesFeatured = Post::isPublished()->isPlace()->isFeatured()->inRandomOrder()->orderBy('created_at','desc')
+        $placesFeatured = Post::publishedByType('place')->isFeatured()->inRandomOrder()->orderBy('created_at','desc')
                                                                       ->take(6)->get();
-        $places = Post::isPublished()->isPlace()->notFeatured()->inRandomOrder()->orderBy('created_at','desc')
+        $places =  Post::publishedByType('place')->notFeatured()->inRandomOrder()->orderBy('created_at','desc')
                      ->take(6)->get();
-        $posts = Post::isPublished()->isPost()->orderBy('created_at','desc')
+        $posts =  Post::publishedByType()->orderBy('created_at','desc')
                      ->take(6)->get();
         $images = Album::allPhotos();
         return view('components.web.features.home.home-item', [

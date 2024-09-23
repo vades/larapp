@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index(): View
     {
-        $posts = Post::isPublished()->isPost()->orderBy('created_at','desc')
+        $posts = Post::publishedByType()->orderBy('created_at','desc')
                      ->paginate(20);
         $page = (object)[
             'title' => 'Blog List title',
@@ -40,7 +40,7 @@ class BlogController extends Controller
      */
     public function show(string $id): View
     {
-        $post =  Post::isPublished()->isPost()->where('slug', $id)->with('user')->firstOrFail();
+        $post =  Post::publishedByType()->where('slug', $id)->with('user')->firstOrFail();
         //dd($post->user->toArray());
         $page = (object)[
             'title' => $post['title'],
@@ -57,7 +57,7 @@ class BlogController extends Controller
 
     public function category()
     {
-        $categories = Category::getBlog()->withCount('posts')->get();
+        $categories = Category::publishedByType()->withCount('posts')->get();
         $page = (object)[
             'title' => 'Blog Category title',
             'subtitle' => 'Blog Category subtitle',

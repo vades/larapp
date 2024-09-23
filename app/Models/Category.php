@@ -17,17 +17,10 @@ class Category extends Model
         return $this->belongsToMany(Post::class);
     }
 
-    public function scopeGetBlog(Builder $query): void
+    public function scopePublishedByType(Builder $query, string $categoryType = 'post'): void
     {
         $query->where('is_published', 1)
-              ->where('category_type', 'post')
-              ->orderBy('position')
-              ->orderBy('title');
-    }
-    public function scopeGetPlace(Builder $query): void
-    {
-        $query->where('is_published', 1)
-              ->where('category_type', 'place')
+              ->where('category_type', $categoryType)
               ->orderBy('position')
               ->orderBy('title');
     }
