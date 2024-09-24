@@ -25,6 +25,6 @@
 
 
     <x-utils.prev-next class="flex justify-center mt-8"
-                       prevUrl="#"
-                       nextUrl="#" />
+                       :prevUrl="$previousPlace"
+                       :nextUrl="$nextPlace" />
 </x-web.layout>

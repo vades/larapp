@@ -32,7 +32,40 @@ class PlaceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): View{
+    public function show(string $id): View {
+        $place = Post::publishedByType('place')->where('slug', $id)->firstOrFail();
+
+        $nextPlace = Post::publishedByType('place')
+                         ->where('created_at', '>', $place->created_at)
+                         ->orderBy('created_at', 'asc')
+                         ->first();
+
+        $previousPlace = Post::publishedByType('place')
+                             ->where('created_at', '<', $place->created_at)
+                             ->orderBy('created_at', 'desc')
+                             ->first();
+
+        $images = Album::allPhotos();
+        $places = Post::publishedByType('place')->orderBy('created_at', 'desc')->take(6)->get();
+        $page = (object)[
+            'title' => $place['title'],
+            'subtitle' => $place['subTitle'],
+            'metaTitle' => $place['metaTitle'],
+            'keywords' => $place['keywords'] ?? null,
+            'metaDescription' => $place['metaDescription'],
+        ];
+
+        return view('components.web.features.place.place-item', [
+            'page' => $page,
+            'place' => (object)$place,
+            'images' => $images,
+            'highlights' => $places,
+            'related' => $places,
+            'nextPlace' => $nextPlace ? route('placeItem',  ['placeId'=>$nextPlace->slug]) : null,
+            'previousPlace' => $previousPlace ? route('placeItem',  ['placeId'=>$previousPlace->slug]) : null
+        ]);
+    }
+    public function _(string $id): View{
         $place = Post::publishedByType('place')->where('slug', $id)->firstOrFail();
         $images = Album::allPhotos();
         $places = Post::publishedByType('place')->orderBy('created_at','desc')->take(6)->get();
