@@ -13,12 +13,12 @@
         </section>
     @endif
 
-    @if(isset($highlights))
+    @if(isset($highlights) && count($highlights) > 0)
         <h2 class="text-lg mb-4">Altstadt - St. Lorenz highlights</h2>
-    <x-web.features.place.partials.place-item-highlight :highlights="$highlights" class="mb-8" />
+     <x-web.features.place.partials.place-item-highlight :highlights="$highlights" class="mb-8" />
     @endif
 
-    @if(isset($related))
+    @if(isset($related) && count($related) > 0)
         <h2 class="text-lg mb-4">Other places in category</h2>
     <x-web.features.place.partials.place-item-related :related="$related" class="mb-8" />
     @endif

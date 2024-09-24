@@ -14,7 +14,8 @@ class PlaceController extends Controller
      * Display a listing of the resource.
      */
     public function index(): View{
-        $places = Post::allPlacePosts();
+        $places = Post::publishedByType('place')->orderBy('created_at','desc')
+                      ->paginate(20);
         $page = (object)[
             'title' => 'Place List title',
             'subtitle' => 'Place List subtitle',
@@ -32,9 +33,9 @@ class PlaceController extends Controller
      * Display the specified resource.
      */
     public function show(string $id): View{
-        $place = Post::findPlacePost($id);
+        $place = Post::publishedByType('place')->where('slug', $id)->firstOrFail();
         $images = Album::allPhotos();
-        $places = Post::allPlacePosts();
+        $places = Post::publishedByType('place')->orderBy('created_at','desc')->take(6)->get();
         $page = (object)[
             'title' => $place['title'],
             'subtitle' => $place['subTitle'],
@@ -52,7 +53,7 @@ class PlaceController extends Controller
     }
 
     public function category(): View{
-        $categories = Category::allPlaceCategories();
+        $categories = Category::publishedByType('place')->withCount('posts')->where('posts_count','>',0)->get();
         $page = (object)[
             'title' => 'Place Category title',
             'subtitle' => 'Place Category subtitle',
