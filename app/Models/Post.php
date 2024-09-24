@@ -32,6 +32,17 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+    public function getAddressAttribute()
+    {
+        $options = json_decode($this->options, true);
+        return $options['address'] ?? null;
+    }
+
+    public function getGoogleMapEmbedUrlAttribute()
+    {
+        $options = json_decode($this->options, true);
+        return $options['googleMapEmbedUrl'] ?? null;
+    }
 
     public function scopePublishedByType(Builder $query, string $postType = 'post'): void
     {

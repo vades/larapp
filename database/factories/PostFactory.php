@@ -32,7 +32,10 @@ class PostFactory extends Factory
             'description' => fake()->text(),
             'content' => fake()->realText(),
             'image_url' => fake()->imageUrl(),
-            'options' => json_encode(['key' => 'value']),
+            'options' => json_encode([
+                'address' => fake()->address,
+                'googleMapEmbedUrl' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.241572848425!2d11.075188212281216!3d49.45398477129993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479f57a581beec25%3A0xd069918617a249e0!2sHauptmarkt%2C%2090403%20N%C3%BCrnberg!5e1!3m2!1sen!2sde!4v1727184778559!5m2!1sen!2sde',
+                                     ]),
         ];
     }
 }
