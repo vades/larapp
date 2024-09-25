@@ -34,16 +34,11 @@ class PlaceController extends Controller
      */
     public function show(string $id): View {
         $place = Post::publishedByType('place')->where('slug', $id)->firstOrFail();
+        //dd($place->previousPublishedByType('place')->id);
 
-        $nextPlace = Post::publishedByType('place')
-                         ->where('created_at', '>', $place->created_at)
-                         ->orderBy('created_at', 'asc')
-                         ->first();
+        $nextPlace = $place->nextPublishedByType('place');
 
-        $previousPlace = Post::publishedByType('place')
-                             ->where('created_at', '<', $place->created_at)
-                             ->orderBy('created_at', 'desc')
-                             ->first();
+        $previousPlace = $place->previousPublishedByType('place');
 
         $images = Album::allPhotos();
         $places = Post::publishedByType('place')->orderBy('created_at', 'desc')->take(6)->get();

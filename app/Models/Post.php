@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Scopes\ProjectScope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 #[ScopedBy(ProjectScope::class)]
 class Post extends Model
@@ -32,6 +32,7 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
     public function getAddressAttribute()
     {
         $options = json_decode($this->options, true);
@@ -47,8 +48,26 @@ class Post extends Model
     public function scopePublishedByType(Builder $query, string $postType = 'post'): void
     {
         $query->where('post_status', 'published')
-            ->where('post_type', $postType);
+              ->where('post_type', $postType)
+        ;
     }
+
+    public function nextPublishedByType(string $postType = 'post')
+    {
+        return $this->publishedByType($postType)
+                    ->where('id', '>', $this->id)
+                    ->orderBy('id')
+                    ->first();
+    }
+
+    public function previousPublishedByType(string $postType = 'post')
+    {
+        return $this->publishedByType($postType)
+                    ->where('id', '<', $this->id)
+                    ->orderByDesc('id')
+                    ->first();
+    }
+
     public function scopeIsFeatured(Builder $query): void
     {
         $query->where('is_featured', 1);
