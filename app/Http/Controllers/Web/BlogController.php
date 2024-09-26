@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -13,9 +14,9 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $posts = Post::publishedByType()->orderBy('created_at','desc')
+        $posts = Post::publishedByType()->filter($request)->orderBy('created_at','desc')
                      ->paginate(20);
         $page = (object)[
             'title' => 'Blog List title',
@@ -41,7 +42,6 @@ class BlogController extends Controller
     public function show(string $id): View
     {
         $post =  Post::publishedByType()->where('slug', $id)->with('user')->firstOrFail();
-        //dd($post->user->toArray());
         $page = (object)[
             'title' => $post['title'],
             'subtitle' => $post['subTitle'],

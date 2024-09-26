@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Album;
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PlaceController extends Controller
@@ -13,9 +14,10 @@ class PlaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View{
-        $places = Post::publishedByType('place')->orderBy('created_at','desc')
+    public function index(Request $request): View{
+        $places = Post::publishedByType('place')->filter($request)->orderBy('created_at','desc')
                       ->paginate(20);
+
         $page = (object)[
             'title' => 'Place List title',
             'subtitle' => 'Place List subtitle',

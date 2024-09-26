@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 #[ScopedBy(ProjectScope::class)]
 class Post extends Model
@@ -51,6 +52,29 @@ class Post extends Model
               ->where('post_type', $postType)
         ;
     }
+    public function scopeIsFeatured(Builder $query): void
+    {
+        $query->where('is_featured', 1);
+    }
+
+    public function scopeNotFeatured(Builder $query): void
+    {
+        $query->where('is_featured', 0);
+    }
+
+public function scopeFilter(Builder $query, Request $request): void
+{
+    $query->when($request->filled('category'), function ($q) use ($request) {
+        $q->whereHas('categories', function ($q) use ($request) {
+            $q->where('slug', '=', $request->input('category'));
+        });
+    });
+    $query->when($request->filled('tag'), function ($q) use ($request) {
+        $q->whereHas('tags', function ($q) use ($request) {
+            $q->where('name', '=', $request->input('tag'));
+        });
+    });
+}
 
     public function nextPublishedByType(string $postType = 'post')
     {
@@ -66,15 +90,5 @@ class Post extends Model
                     ->where('id', '<', $this->id)
                     ->orderByDesc('id')
                     ->first();
-    }
-
-    public function scopeIsFeatured(Builder $query): void
-    {
-        $query->where('is_featured', 1);
-    }
-
-    public function scopeNotFeatured(Builder $query): void
-    {
-        $query->where('is_featured', 0);
     }
 }
