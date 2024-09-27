@@ -1,11 +1,11 @@
 @props(['places'])
 <section {{$attributes->class(['md:grid  gap-2 md:grid-cols-2 lg:grid-cols-3'])}}>
-    @foreach(collect($places)->take(6) as $item)
+    @foreach($places as $item)
         <a href="{{ route('placeItem',  ['placeId'=>$item->slug]) }}">
             <x-utils.card class="bg-skin-base">
                 <x-slot name="header">
                     <img class="mr-auto ml-auto"
-                         src="{{$item->imageUrl}}"
+                         src="{{$item->image_url}}"
                          alt="{{ $item->title}}">
                 </x-slot>
                 <x-slot name="body"

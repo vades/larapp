@@ -2,6 +2,7 @@
 $myAppNav = require_once 'myappnav.php';
 return [
     'name' => 'MyApp',
+    'projectId' => env('PROJECT_ID', 1),
     'headerNav' => [
             'blog' => $myAppNav['blogList'],
             'places' => $myAppNav['placeList'],

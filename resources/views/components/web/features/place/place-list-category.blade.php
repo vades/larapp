@@ -6,7 +6,7 @@
                 <x-utils.card class="bg-skin-base">
                     <x-slot name="header">
                         <img class="mr-auto ml-auto"
-                             src="{{$category->imageUrl}}"
+                             src="{{$category->image_url}}"
                              alt="{{ $category->title}}">
                     </x-slot>
                     <x-slot name="body" class="p-3">
@@ -17,7 +17,7 @@
                     </x-slot>
                     <x-slot name="footer" class="p-3">
                         <div>
-                            <span class="btn btn-primary">Show ({{ $category->numOfPosts }}) places</span>
+                            <span class="btn btn-primary">Show ({{ $category->posts_count }}) places</span>
                         </div>
                     </x-slot>
                 </x-utils.card>

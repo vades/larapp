@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -13,9 +14,10 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $posts = Post::allBlogPosts();
+        $posts = Post::publishedByType()->filter($request)->orderBy('created_at','desc')
+                     ->paginate(20);
         $page = (object)[
             'title' => 'Blog List title',
             'subtitle' => 'Blog List subtitle',
@@ -39,7 +41,7 @@ class BlogController extends Controller
      */
     public function show(string $id): View
     {
-        $post = Post::findBlogPost($id);
+        $post =  Post::publishedByType()->where('slug', $id)->with('user')->firstOrFail();
         $page = (object)[
             'title' => $post['title'],
             'subtitle' => $post['subTitle'],
@@ -55,7 +57,7 @@ class BlogController extends Controller
 
     public function category()
     {
-        $categories = Category::allBlogCategories();
+        $categories = Category::publishedByType()->withCount('posts')->where('posts_count','>',0)->get();
         $page = (object)[
             'title' => 'Blog Category title',
             'subtitle' => 'Blog Category subtitle',
@@ -73,7 +75,7 @@ class BlogController extends Controller
 
     public function tag()
     {
-        $tags = Tag::allBlogTags();
+        $tags = Tag::publishedByType()->withCount('posts')->where('posts_count','>',0)->get();
         $page = (object)[
             'title' => 'Blog Tag title',
             'subtitle' => 'Blog Tag subtitle',

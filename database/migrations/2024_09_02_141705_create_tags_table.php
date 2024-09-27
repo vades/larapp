@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->default(0);
+            $table->boolean('is_published')->default(0);
+            $table->string('tag_type', 20)->default('post');
+            $table->string('lang', 10);
+            $table->bigInteger('views_count')->default(0);
             $table->string('name', 255)->unique();
             $table->timestamps();
         });
