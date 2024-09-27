@@ -20,6 +20,7 @@
 - `composer dump-autoload`
 - `php artisan tinker`
 - `php artisan make:scope ProjectScope`
+- `php artisan make:trait`
 
 ```
 -c, --controller Create a new controller for the model
