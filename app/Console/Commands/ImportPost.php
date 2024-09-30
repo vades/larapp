@@ -12,7 +12,7 @@ class ImportPost extends Command
      *
      * @var string
      */
-    protected $signature = 'app:import-posts';
+    protected $signature = 'app:import-post';
 
     /**
      * The console command description.
@@ -27,8 +27,9 @@ class ImportPost extends Command
     public function handle(PostService $postService)
     {
         try {
+            $postService->setPostType('post');
             $postService->handle();
-            $this->info('Some info');
+            $this->info('Importing posts');
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
