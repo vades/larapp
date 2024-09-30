@@ -22,6 +22,7 @@
 - `php artisan make:scope ProjectScope`
 - `php artisan make:trait`
 - `php artisan make:command CustomTask`
+- `php artisan make:class CustomClass`
 
 ```
 -c, --controller Create a new controller for the model

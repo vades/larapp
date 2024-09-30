@@ -24,10 +24,10 @@ class ImportPost extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(PostService $postService)
     {
         try {
-            PostService::process();
+            $postService->handle();
             $this->info('Some info');
         } catch (\Exception $e) {
             $this->error($e->getMessage());

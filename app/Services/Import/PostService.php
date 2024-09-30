@@ -15,10 +15,10 @@ class PostService
     # endregion PROPERTY_ACCESSORS
 
     # region METHODS
-    public static function process(): void
+    public function handle(): void
     {
 
-        throw new \Exception('An Error from post service');
+        throw new \Exception('PostService not implemented');
         /* Log::info('Importing posts to the database');
         dd('Importing posts to the database');*/
 
