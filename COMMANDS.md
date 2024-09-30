@@ -24,6 +24,9 @@
 - `php artisan make:command CustomTask`
 - `php artisan make:class CustomClass`
 
+## Imporst
+- app:import-posts
+
 ```
 -c, --controller Create a new controller for the model
 -f, --factory Create a new factory for the model

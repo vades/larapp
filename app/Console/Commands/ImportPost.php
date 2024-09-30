@@ -12,7 +12,7 @@ class ImportPost extends Command
      *
      * @var string
      */
-    protected $signature = 'app:import-post';
+    protected $signature = 'app:import-posts';
 
     /**
      * The console command description.
