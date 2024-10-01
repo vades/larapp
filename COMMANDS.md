@@ -25,7 +25,7 @@
 - `php artisan make:class CustomClass`
 
 ## Imporst
-- app:import-post
+- php artisan app:import-post
 
 ```
 -c, --controller Create a new controller for the model
