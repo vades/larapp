@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Import;
 
+use App\Data\PostData;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -86,24 +87,26 @@ class PostService
             $data->post_status = $object->post_status ?? 'draft';
             $data->position = $object->position ?? 0;
             $data->views_count = $object->views_count ?? 0;
-            $data->slug = $object->slug ?? null;
+            $data->slug = $object->slug ?? '';
             $data->lang = $object->lang ?? 'en';
             $data->title = str($object->title)->squish();
-            $data->subtitle = str($object->subtitle)->squish() ?? '';
+            //$data->subtitle = str($object->subtitle)->squish() ?? '';
             $data->description = str($object->description)->squish() ?? '';
             $data->content =  str($object->body())->squish();
             $data->image_url = $object->image_url ?? '';
 
             // Function takes all $object properties that are not listed in $data properties and creates an array that
             // will be the content of options.
-            $data->options = array_filter((array) $object->matter(), function ($key) use ($data) {
+            $data->optionss = array_filter((array) $object->matter(), function ($key) use ($data) {
                     return !property_exists($data, $key) && strpos($key, "\x00*\x00") === false;
                 },
                 ARRAY_FILTER_USE_KEY
             );
 
+            $post = PostData::from($data);
+
             //$object->matter();
-            dd($data);
+            dd($post);
             //dump( $object->body());
             dump( $object->matter('title'));
             //$this->parseMarkdownContent($content);
