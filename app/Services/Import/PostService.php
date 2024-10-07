@@ -82,7 +82,7 @@ class PostService
             $data->parent_id= $object->parent_id ?? 0;
             $data->project_id = $object->project_id ?? config('myapp.projectId');
             $data->user_id = $object->user_id ?? 1;
-            $data->is_featured = $object->is_featured ?? 0;
+            $data->is_featured = $object->is_featured ?? false;
             $data->post_type = $object->post_type ?? $this->postType;
             $data->post_status = $object->post_status ?? 'draft';
             $data->position = $object->position ?? 0;
@@ -90,23 +90,25 @@ class PostService
             $data->slug = $object->slug ?? '';
             $data->lang = $object->lang ?? 'en';
             $data->title = str($object->title)->squish();
-            //$data->subtitle = str($object->subtitle)->squish() ?? '';
+            $data->subtitle = str($object->subtitle)->squish() ?? '';
             $data->description = str($object->description)->squish() ?? '';
             $data->content =  str($object->body())->squish();
             $data->image_url = $object->image_url ?? '';
 
             // Function takes all $object properties that are not listed in $data properties and creates an array that
             // will be the content of options.
-            $data->optionss = array_filter((array) $object->matter(), function ($key) use ($data) {
+            $data->options = array_filter((array) $object->matter(), function ($key) use ($data) {
                     return !property_exists($data, $key) && strpos($key, "\x00*\x00") === false;
                 },
                 ARRAY_FILTER_USE_KEY
             );
 
+            //dd($data);
+
             $post = PostData::from($data);
 
             //$object->matter();
-            dd($post);
+            dd($post->toArray());
             //dump( $object->body());
             dump( $object->matter('title'));
             //$this->parseMarkdownContent($content);
