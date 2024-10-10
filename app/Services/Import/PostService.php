@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Import;
 
 use App\Data\PostData;
+use App\Models\Post;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -89,12 +90,12 @@ class PostService
             $data->post_status = $object->post_status ?? PostStatus::DRAFT;
             $data->position = $object->position ?? 0;
             $data->views_count = $object->views_count ?? 0;
-            $data->slug = $object->slug ?? '';
+            //$data->slug = $object->slug ?? '';
             $data->lang = $object->lang ?? 'en';
             $data->title = str($object->title)->squish();
             $data->subtitle = str($object->subtitle)->squish() ?? '';
             $data->description = str($object->description)->squish() ?? '';
-            $data->content =  str($object->body())->squish();
+            $data->content =  str($object->body());
             $data->image_url = $object->image_url ?? '';
             $data->tags = $obj->tags ?? null;
             $data->categories = $obj->categories ?? null;
@@ -109,14 +110,37 @@ class PostService
 
             //dd($data);
 
-            $post = PostData::from($data);
+            $postData = PostData::from($data);
 
-            //$object->matter();
-            dd($post->toArray());
-            //dump( $object->body());
-            dump( $object->matter('title'));
-            //$this->parseMarkdownContent($content);
+            $this->createPost($postData);
         }
+
+
+    }
+
+    private function createPost(PostData $postData): void
+    {
+        $post = Post::updateOrCreate(
+            ['uuid' => $postData->uuid],
+            [
+                'parent_id' => $postData->parent_id,
+                'project_id' => $postData->project_id,
+                'user_id' => $postData->user_id,
+                'is_featured' => $postData->is_featured,
+                'post_type' => $postData->post_type,
+                'post_status' => $postData->post_status,
+                'position' => $postData->position,
+                'views_count' => $postData->views_count,
+                'lang' => $postData->lang,
+                'title' => $postData->title,
+                'subtitle' => $postData->subtitle,
+                'description' => $postData->description,
+                'content' => $postData->content,
+                'image_url' => $postData->image_url,
+                'options' => json_encode($postData->options),
+            ]
+        );
+        dd($postData);
     }
 
     # endregion METHODS

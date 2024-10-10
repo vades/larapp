@@ -20,7 +20,7 @@ class PostData extends Data
         public PostStatus $post_status,
         public int $position,
         public int $views_count,
-        public string $slug,
+        public string|Optional $slug,
         public string $lang,
         public string $title,
         public string|Optional $subtitle,

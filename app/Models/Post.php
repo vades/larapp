@@ -3,16 +3,38 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProjectScope;
+use App\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 #[ScopedBy(ProjectScope::class)]
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug, ModelTrait;
+
+    protected $fillable = [
+        'uuid',
+        'parent_id',
+        'project_id',
+        'user_id',
+        'is_featured',
+        'post_type',
+        'post_status',
+        'position',
+        'views_count',
+        'lang',
+        'title',
+        'subtitle',
+        'description',
+        'content',
+        'image_url',
+        'options',
+        ];
 
     public function project()
     {
@@ -34,6 +56,13 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+                          ->generateSlugsFrom('title')
+                          ->saveSlugsTo('slug');
+    }
+
     public function getAddressAttribute()
     {
         $options = json_decode($this->options, true);
@@ -45,6 +74,11 @@ class Post extends Model
         $options = json_decode($this->options, true);
         return $options['googleMapEmbedUrl'] ?? null;
     }
+
+    /*public function scopeFindByUuid(Builder $query, string $uuid): void
+    {
+        $query->where('uuid', $uuid);
+    }*/
 
     public function scopePublishedByType(Builder $query, string $postType = 'post'): void
     {
