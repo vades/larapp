@@ -8,6 +8,7 @@ use App\Data\PostData;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use App\Enums\PostStatus;
 
 class PostService
 {
@@ -79,12 +80,13 @@ class PostService
 
             $object = YamlFrontMatter::parse($content);
             $data = new \stdClass();
+            $data->uuid= $object->uuid ?? '';
             $data->parent_id= $object->parent_id ?? 0;
             $data->project_id = $object->project_id ?? config('myapp.projectId');
             $data->user_id = $object->user_id ?? 1;
             $data->is_featured = $object->is_featured ?? false;
             $data->post_type = $object->post_type ?? $this->postType;
-            $data->post_status = $object->post_status ?? 'draft';
+            $data->post_status = $object->post_status ?? PostStatus::DRAFT;
             $data->position = $object->position ?? 0;
             $data->views_count = $object->views_count ?? 0;
             $data->slug = $object->slug ?? '';
@@ -94,6 +96,8 @@ class PostService
             $data->description = str($object->description)->squish() ?? '';
             $data->content =  str($object->body())->squish();
             $data->image_url = $object->image_url ?? '';
+            $data->tags = $obj->tags ?? null;
+            $data->categories = $obj->categories ?? null;
 
             // Function takes all $object properties that are not listed in $data properties and creates an array that
             // will be the content of options.
