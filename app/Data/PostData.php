@@ -11,6 +11,7 @@ use App\Enums\PostStatus;
 class PostData extends Data
 {
     public function __construct(
+        public string $uuid,
         public int $parent_id,
         public int $project_id,
         public int $user_id,
