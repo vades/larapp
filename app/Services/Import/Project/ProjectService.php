@@ -34,10 +34,10 @@ class ProjectService
     {
 
         try {
-            $categoryService = new ProjectCategoryService();
-            $postService = new ProjectPostService();
+            $categoryService = new ProjectCategoryService($this->project);
             $categoryService->handle();
-            $postService->handle();
+            // $postService = new ProjectPostService();
+           // $postService->handle();
 
             Log::info('Importing DEV project data to the database');
             dd('Importing DEV project data to the database');

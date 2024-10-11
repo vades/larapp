@@ -3,6 +3,7 @@ $myAppNav = require_once 'myappnav.php';
 return [
     'name' => 'MyApp',
     'projectId' => env('PROJECT_ID', 1),
+    'importsDir' => 'app/imports/',
     'importDir' => [
         'post' => 'app/imports/posts/',
         'place' => 'app/imports/places/',
