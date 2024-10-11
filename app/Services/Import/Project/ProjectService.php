@@ -3,6 +3,7 @@
 namespace App\Services\Import\Project;
 
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ProjectService
 {
@@ -23,6 +24,7 @@ class ProjectService
 
         match ($this->project) {
             'dev' => $this->importDevProject(),
+            'ivnbg' => $this->importIvnbgProject(),
             default =>  throw new Exception('Unknown project: ' . $this->project),
         };
 
@@ -30,6 +32,20 @@ class ProjectService
 
     private function importDevProject(): void
     {
+
+        try {
+            Log::info('Importing DEV project data to the database');
+            dd('Importing DEV project data to the database');
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+
+    }
+
+    private function importIvnbgProject(): void
+    {
         throw new Exception('ImportProject not implemented for project: ' . $this->project);
+
+
     }
 }
