@@ -24,7 +24,8 @@
 - `php artisan make:command CustomTask`
 - `php artisan make:class CustomClass`
 
-## Imporst
+## Imports
+- php artisan app:import-project --name dev
 - php artisan app:import-post
 
 ```
