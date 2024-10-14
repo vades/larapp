@@ -5,6 +5,8 @@ namespace App\Services\Import\Project;
 use Exception;
 use Spatie\YamlFrontMatter\Document;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use App\Data\CategoryData;
+
 
 class ProjectCategoryService
 {
@@ -91,19 +93,32 @@ class ProjectCategoryService
     {
         $data = new \stdClass();
         $data->uuid= $object->uuid ?? '';
-        $data->parent_id= $object->parent_id ?? 0;
         $data->project_id = $object->project_id ?? config('myapp.projectId');
+        $data->parent_id= $object->parent_id ?? 0;
+        $data->is_published = $object->is_published ?? false;
         $data->category_type = $categoryType;
+        $data->position = $object->position ?? 0;;
+        $data->views_count = $object->views_count ?? 0;
+        $data->lang = $object->lang ?? 'en';
         $data->title= $object->title ?? 0;
+        $data->title = str($object->title)->squish();
+        $data->description = $object->description ?? '';
+        $data->image_url = $object->image_url ?? '';
+        $data->options = array_filter((array) $object->matter(), function ($key) use ($data) {
+            return !property_exists($data, $key) && strpos($key, "\x00*\x00") === false;
+        },
+                                      ARRAY_FILTER_USE_KEY
+        );
+        $categoryData = CategoryData::from($data);
 
-        $this->createCategory();
+        $this->createCategory($categoryData);
 
-        dump($data);
+
 
     }
 
-    private function createCategory(): void
+    private function createCategory(CategoryData $categoryData): void
     {
-        // Create category
+        dump($categoryData);
     }
 }
