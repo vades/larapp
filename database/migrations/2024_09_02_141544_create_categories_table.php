@@ -17,9 +17,10 @@ return new class extends Migration
             $table->foreignId('project_id')->default(0);
             $table->bigInteger('parent_id')->default(0);
             $table->boolean('is_published')->default(0);
+            $table->string('category_type', 20)->default('post');
             $table->integer('position')->default(0);
             $table->bigInteger('views_count')->default(0);
-            $table->string('category_type', 20)->default('post');
+
             $table->string('slug', 255)->unique();
             $table->string('lang', 10);
             $table->string('title', 255);
