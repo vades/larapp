@@ -120,7 +120,7 @@ class PostService
 
     private function createPost(PostData $postData): void
     {
-        Post::updateOrCreate(
+        $post = Post::updateOrCreate(
             ['uuid' => $postData->uuid],
             [
                 'parent_id' => $postData->parent_id,

@@ -4,6 +4,10 @@ return [
     'name' => 'MyApp',
     'projectId' => env('PROJECT_ID', 1),
     'importsDir' => 'app/imports/',
+    'projects'=> [
+        '1' => 'dev',
+        '2' => 'ivnbg.com',
+    ],
     'importDir' => [
         'post' => 'app/imports/posts/',
         'place' => 'app/imports/places/',

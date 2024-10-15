@@ -41,7 +41,8 @@ class Category extends Model
     {
         return SlugOptions::create()
                           ->generateSlugsFrom('title')
-                          ->saveSlugsTo('slug');
+                          ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
     }
 
     public function scopePublishedByType(Builder $query, string $categoryType = 'post'): void

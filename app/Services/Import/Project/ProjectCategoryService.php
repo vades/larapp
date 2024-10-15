@@ -39,10 +39,6 @@ class ProjectCategoryService
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-
-        //throw new Exception('CategoryService not implemented');
-        /* Log::info('Importing categories to the database');
-        dd('Importing categories to the database');*/
     }
 
     private function parseImportDir(): void
@@ -112,7 +108,7 @@ class ProjectCategoryService
         );
         $categoryData = CategoryData::from($data);
 
-        $this->createCategory($categoryData);
+       $this->createCategory($categoryData);
 
 
     }
@@ -120,9 +116,10 @@ class ProjectCategoryService
     private function createCategory(CategoryData $categoryData): void
     {
 
-        $category = Category::updateOrCreate([
+
+       $category = Category::updateOrCreate(
                                      ['uuid' => $categoryData->uuid],
-                                     'uuid' => $categoryData->uuid,
+                                     ['uuid' => $categoryData->uuid,
                                      'project_id' => $categoryData->project_id,
                                      'parent_id' => $categoryData->parent_id,
                                      'is_published' => $categoryData->is_published,
@@ -135,6 +132,6 @@ class ProjectCategoryService
                                      'image_url' => $categoryData->image_url,
                                      'options' => json_encode($categoryData->options),
                                  ]);
-        dump($category);
+       dump($category);
     }
 }
