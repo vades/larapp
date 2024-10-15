@@ -16,6 +16,22 @@ class Category extends Model
 {
     use HasFactory, HasSlug, ModelTrait;
 
+    protected $fillable = [
+        'uuid',
+        'project_id',
+        'parent_id',
+        'is_published',
+        'category_type',
+        'position',
+        'views_count',
+        'slug',
+        'lang',
+        'title',
+        'description',
+        'image_url',
+        'options',
+    ];
+
     public function posts()
     {
         return $this->belongsToMany(Post::class);
