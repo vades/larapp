@@ -36,10 +36,18 @@ class ProjectService
         try {
             $categoryService = new ProjectCategoryService($this->project);
             $categoryService->handle();
+            Log::info('Importing DEV project data to the database');
+            if(!empty($categoryService->getErrors())) {
+                Log::error('Error importing categories for project: ' . $this->project);
+                foreach ($categoryService->getErrors() as $error) {
+                    Log::error($error);
+                }
+
+            }
             // $postService = new ProjectPostService();
            // $postService->handle();
 
-            Log::info('Importing DEV project data to the database');
+
             dd('Importing DEV project data to the database');
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

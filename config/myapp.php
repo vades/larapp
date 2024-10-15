@@ -5,8 +5,8 @@ return [
     'projectId' => env('PROJECT_ID', 1),
     'importsDir' => 'app/imports/',
     'projects'=> [
-        '1' => 'dev',
-        '2' => 'ivnbg.com',
+        'dev' => 1,
+        'ivnbg' => 2,
     ],
     'importDir' => [
         'post' => 'app/imports/posts/',
