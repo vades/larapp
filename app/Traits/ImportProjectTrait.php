@@ -4,6 +4,8 @@ namespace App\Traits;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
+use Spatie\YamlFrontMatter\Document;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 trait ImportProjectTrait
@@ -66,6 +68,27 @@ trait ImportProjectTrait
                 $object = YamlFrontMatter::parse($content);
                 $this->parseMarkdown($object, $contentType);
 
+            }
+        }
+    }
+    // Function takes all $object properties that are not listed in $data properties and creates an array that
+    // will be the content of options.
+
+    private function parseOptions(Document $object, $data): void
+    {
+        $data->options = array_filter((array) $object->matter(), function ($key) use ($data) {
+            return !property_exists($data, $key) && strpos($key, "\x00*\x00") === false;
+        },
+                                      ARRAY_FILTER_USE_KEY
+        );
+    }
+
+    private function logErrors(): void
+    {
+        if(!empty($this->getErrors())) {
+            Log::error('Some errors occurred while importing data for project: ' . $this->project);
+            foreach ($this->getErrors() as $error) {
+                Log::error($error);
             }
         }
     }

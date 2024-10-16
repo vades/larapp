@@ -44,45 +44,39 @@ class ProjectCategoryService
         $data->position = $object->position ?? 0;;
         $data->views_count = $object->views_count ?? 0;
         $data->lang = $object->lang ?? app()->getLocale();
-        $data->title = $object->title ?? 0;
         $data->title = str($object->title)->squish();
-        $data->description = $object->description ?? '';
+        $data->description = str($object->description)->squish() ?? '';
         $data->image_url = $object->image_url ?? '';
-        $data->options = array_filter((array)$object->matter(), function ($key) use ($data) {
-            return !property_exists($data, $key) && strpos($key, "\x00*\x00") === false;
-        },
-                                      ARRAY_FILTER_USE_KEY
-        );
-        $categoryData = CategoryData::from($data);
+        $this->parseOptions($object, $data);
 
-        $this->createCategory($categoryData);
+        $this->createCategory(CategoryData::from($data));
 
 
     }
 
-    private function createCategory(CategoryData $categoryData): void
+    private function createCategory(CategoryData $data): void
     {
 
 
         try {
             $category = Category::updateOrCreate(
-                ['uuid' => $categoryData->uuid],
-                ['uuid' => $categoryData->uuid,
-                    'project_id' => $categoryData->project_id,
-                    'parent_id' => $categoryData->parent_id,
-                    'is_published' => $categoryData->is_published,
-                    'category_type' => $categoryData->category_type,
-                    'position' => $categoryData->position,
-                    'views_count' => $categoryData->views_count,
-                    'lang' => $categoryData->lang,
-                    'title' => $categoryData->title,
-                    'description' => $categoryData->description,
-                    'image_url' => $categoryData->image_url,
-                    'options' => json_encode($categoryData->options),
+                ['uuid' => $data->uuid],
+                ['uuid' => $data->uuid,
+                    'project_id' => $data->project_id,
+                    'parent_id' => $data->parent_id,
+                    'is_published' => $data->is_published,
+                    'category_type' => $data->category_type,
+                    'position' => $data->position,
+                    'views_count' => $data->views_count,
+                    'lang' => $data->lang,
+                    'title' => $data->title,
+                    'description' => $data->description,
+                    'image_url' => $data->image_url,
+                    'options' => json_encode($data->options),
                 ]
             );
         } catch (Exception $e) {
-            $this->errors[] = 'ERROR: Unable to save category: ' . $categoryData->title . ' | '.  $categoryData->uuid;
+            $this->errors[] = 'ERROR: Unable to save category: ' . $data->title . ' | '.  $data->uuid;
             $this->errors[] = $e->getMessage();
         }
     }
