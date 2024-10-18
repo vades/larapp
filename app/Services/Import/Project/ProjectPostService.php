@@ -4,9 +4,11 @@ namespace App\Services\Import\Project;
 
 use App\Data\PostData;
 use App\Enums\PostStatus;
+use App\Models\Category;
 use App\Models\Post;
 use App\Traits\ImportProjectTrait;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Spatie\YamlFrontMatter\Document;
 
 
@@ -53,21 +55,27 @@ class ProjectPostService
         $data->description = str($object->description)->squish() ?? '';
         $data->content =  str($object->body());
         $data->image_url = $object->image_url ?? '';
-        $data->tags = $obj->tags ?? null;
-        $data->categories = $obj->categories ?? null;
+        $data->tags = $object->tags ?? null;
+        $data->categories = $object->categories ?? null;
         $this->parseOptions($object, $data);
 
-        $this->storeData(PostData::from($data));
+       $post = $this->storeData(PostData::from($data));
+       if(!is_null($post) && is_string($data->categories)){
+           $categoryIds = $this->getCategoryIds($data->categories, $post);
+           if(count($categoryIds) > 0){
+               $post->categories()->sync($categoryIds);
+           }
+
+       }
 
 
     }
 
-    private function storeData(PostData $data): void
+     private function storeData(PostData $data): Post|null
     {
 
-
         try {
-            Post::updateOrCreate(
+           $post =  Post::updateOrCreate(
                 ['uuid' => $data->uuid],
                 ['uuid' => $data->uuid,
                     'parent_id' => $data->parent_id,
@@ -87,9 +95,30 @@ class ProjectPostService
                     'options' => json_encode($data->options),
                 ]
             );
+           return $post;
         } catch (Exception $e) {
-            $this->errors[] = 'ERROR: Unable to save category: ' . $data->title . ' | '.  $data->uuid;
+            $this->errors[] = 'ERROR: Unable to save post: ' . $data->title . ' | '.  $data->uuid;
             $this->errors[] = $e->getMessage();
+
         }
+        return null;
+    }
+
+
+    private function getCategoryIds(string $categories, Post $post): array
+    {
+        $categorySlugs = array_map('trim', explode(',', $categories));
+        $categories = [];
+
+        foreach ($categorySlugs as $slug) {
+            $category = Category::where('slug', $slug)->publishedByType($post->post_type)->first();
+
+            if (!$category) {
+                $this->errors[] = 'ERROR: Category not found: ' . $slug;
+                continue;
+            }
+            $categories[] = $category->id;
+        }
+        return $categories;
     }
 }
