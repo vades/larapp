@@ -6,9 +6,9 @@ use App\Data\PostData;
 use App\Enums\PostStatus;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Traits\ImportProjectTrait;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Spatie\YamlFrontMatter\Document;
 
 
@@ -40,8 +40,8 @@ class ProjectPostService
     private function parseMarkdown(Document $object, string $contentType): void
     {
         $data = new \stdClass();
-        $data->uuid= $object->uuid ?? '';
-        $data->parent_id= $object->parent_id ?? 0;
+        $data->uuid = $object->uuid ?? '';
+        $data->parent_id = $object->parent_id ?? 0;
         $data->project_id = $object->project_id ?? config('myapp.projects.' . $this->project);
         $data->user_id = $object->user_id ?? 1;
         $data->is_featured = $object->is_featured ?? false;
@@ -53,29 +53,36 @@ class ProjectPostService
         $data->title = str($object->title)->squish();
         $data->subtitle = str($object->subtitle)->squish() ?? '';
         $data->description = str($object->description)->squish() ?? '';
-        $data->content =  str($object->body());
+        $data->content = str($object->body());
         $data->image_url = $object->image_url ?? '';
         $data->tags = $object->tags ?? null;
         $data->categories = $object->categories ?? null;
         $this->parseOptions($object, $data);
 
-       $post = $this->storeData(PostData::from($data));
-       if(!is_null($post) && is_string($data->categories)){
-           $categoryIds = $this->getCategoryIds($data->categories, $post);
-           if(count($categoryIds) > 0){
-               $post->categories()->sync($categoryIds);
-           }
+        $post = $this->storeData(PostData::from($data));
+        if (!is_null($post) && is_string($data->categories)) {
+            $categoryIds = $this->parseCategories($data->categories, $post);
+            if (count($categoryIds) > 0) {
+                $post->categories()->sync($categoryIds);
+            }
 
-       }
+        }
+        if (is_string($data->tags)) {
+            $tagsIds = $this->parseTags($data->tags, $post);
+            if (count($tagsIds) > 0) {
+                $post->tags()->sync($tagsIds);
+            }
+
+        }
 
 
     }
 
-     private function storeData(PostData $data): Post|null
+    private function storeData(PostData $data): Post|null
     {
 
         try {
-           $post =  Post::updateOrCreate(
+            $post = Post::updateOrCreate(
                 ['uuid' => $data->uuid],
                 ['uuid' => $data->uuid,
                     'parent_id' => $data->parent_id,
@@ -95,9 +102,9 @@ class ProjectPostService
                     'options' => json_encode($data->options),
                 ]
             );
-           return $post;
+            return $post;
         } catch (Exception $e) {
-            $this->errors[] = 'ERROR: Unable to save post: ' . $data->title . ' | '.  $data->uuid;
+            $this->errors[] = 'ERROR: Unable to save post: ' . $data->title . ' | ' . $data->uuid;
             $this->errors[] = $e->getMessage();
 
         }
@@ -105,7 +112,7 @@ class ProjectPostService
     }
 
 
-    private function getCategoryIds(string $categories, Post $post): array
+    private function parseCategories(string $categories, Post $post): array
     {
         $categorySlugs = array_map('trim', explode(',', $categories));
         $categories = [];
@@ -120,5 +127,42 @@ class ProjectPostService
             $categories[] = $category->id;
         }
         return $categories;
+    }
+
+    private function parseTags(string $tags, Post $post): array
+    {
+        $tagNames = array_map('trim', explode(',', $tags));
+        $tagIds = [];
+
+        foreach ($tagNames as $tagName) {
+            $tag = $this->storeTag($tagName, $post);
+            if (!is_null($tag)) {
+                $tagIds[] = $tag->id;
+            }
+        }
+        return $tagIds;
+    }
+
+    private function storeTag(string $tagName, Post $post): Tag|null
+    {
+        try {
+            $tag = Tag::updateOrCreate(
+                ['name' => $tagName],
+                ['project_id' => $post->project_id,
+                    'is_published' => true,
+                    'tag_type' => $post->post_type,
+                    'lang' => $post->lang,
+                    'views_count' => 0,
+                    'name' => $tagName,
+
+                ]
+            );
+            return $tag;
+        } catch (Exception $e) {
+            $this->errors[] = 'ERROR: Unable to save tag: ' . $tagName;
+            $this->errors[] = $e->getMessage();
+
+        }
+        return null;
     }
 }
