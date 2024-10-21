@@ -3,6 +3,7 @@
 namespace App\Services\Import\Project;
 
 use App\Data\PostData;
+use App\Data\TagData;
 use App\Enums\PostStatus;
 use App\Models\Category;
 use App\Models\Post;
@@ -135,7 +136,14 @@ class ProjectPostService
         $tagIds = [];
 
         foreach ($tagNames as $tagName) {
-            $tag = $this->storeTag($tagName, $post);
+            $tag = $this->storeTag($tagName, TagData::from([
+                                                               'project_id' => $post->project_id,
+                                                               'is_published' => true,
+                                                               'tag_type' => $post->post_type,
+                                                               'lang' => $post->lang,
+                                                               'views_count' => 0,
+                                                               'name' => $tagName,
+                                                           ]));
             if (!is_null($tag)) {
                 $tagIds[] = $tag->id;
             }
@@ -143,14 +151,14 @@ class ProjectPostService
         return $tagIds;
     }
 
-    private function storeTag(string $tagName, Post $post): Tag|null
+    private function storeTag(string $tagName, TagData $post): Tag|null
     {
         try {
             $tag = Tag::updateOrCreate(
                 ['name' => $tagName],
                 ['project_id' => $post->project_id,
                     'is_published' => true,
-                    'tag_type' => $post->post_type,
+                    'tag_type' => $post->tag_type,
                     'lang' => $post->lang,
                     'views_count' => 0,
                     'name' => $tagName,
