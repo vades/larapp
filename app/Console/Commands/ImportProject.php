@@ -37,6 +37,16 @@ class ImportProject extends Command
         try {
             $service = new ProjectService($project);
             $service->handle();
+
+            $errors = array_merge(...$service->getErrors());
+            foreach ($errors as $message) {
+                $this->error($message);
+            }
+
+            $success = array_merge(...$service->getSuccess());
+            foreach ($success as $message) {
+                $this->info($message);
+            }
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }

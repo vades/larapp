@@ -11,7 +11,16 @@ class ProjectService
 
     private array $errors = [];
 
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
     private array $success = [];
+    public function getSuccess(): array
+    {
+        return $this->success;
+    }
     /**
      * Create a new class instance.
      */
@@ -40,11 +49,13 @@ class ProjectService
         try {
             $categoryService = new ProjectCategoryService($this->project);
             $categoryService->handle();
-           array_push($this->errors, $categoryService->getErrors());
+            array_push($this->errors, $categoryService->getErrors());
+            array_push($this->success, $categoryService->getSuccess());
 
             $postService = new ProjectPostService($this->project);
             $postService->handle();
             array_push($this->errors, $postService->getErrors());
+            array_push($this->success, $postService->getSuccess());
 
 
             //dd('Importing DEV project data to the database');
