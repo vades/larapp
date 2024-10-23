@@ -33,6 +33,7 @@ class ProjectPostService
             $this->parseImportFiles();
             $this->parseMarkdownFiles();
             $this->logErrors();
+            $this->logSuccess();
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -103,9 +104,12 @@ class ProjectPostService
                     'options' => json_encode($data->options),
                 ]
             );
+            $this->success[] = 'SUCCESS: Post saved for project: '  . $data->project_id . ' | '. $data->title . ' | '.
+                $data->uuid;
             return $post;
         } catch (Exception $e) {
-            $this->errors[] = 'ERROR: Unable to save post: ' . $data->title . ' | ' . $data->uuid;
+            $this->errors[] = 'ERROR: Unable to save post for project: '  . $data->project_id . ' | ' . $data->title
+                . ' | ' . $data->uuid;
             $this->errors[] = $e->getMessage();
 
         }
@@ -165,9 +169,10 @@ class ProjectPostService
 
                 ]
             );
+            $this->success[] = 'SUCCESS: Tag saved for project: '  . $post->project_id . ' | '. $tagName;
             return $tag;
         } catch (Exception $e) {
-            $this->errors[] = 'ERROR: Unable to save tag: ' . $tagName;
+            $this->errors[] = 'ERROR: Unable to save tag for project: '  . $post->project_id . ' | '. $tagName;
             $this->errors[] = $e->getMessage();
 
         }

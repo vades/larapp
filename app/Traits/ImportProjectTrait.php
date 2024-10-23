@@ -21,6 +21,13 @@ trait ImportProjectTrait
         return $this->errors;
     }
 
+    private array $success = [];
+    public function getSuccess(): array
+    {
+        return $this->success;
+    }
+
+
     private string $pathToDir;
 
     private array $directories = [];
@@ -48,12 +55,11 @@ trait ImportProjectTrait
             $path = $this->pathToDir . $directory;
             $files = glob($path . '/*.md');
             if (empty($files)) {
-                $this->errors[] = 'No files found in directory: ' . $path;
+                $this->errors[] = 'WARNING: No files found in directory: ' . $path;
                 continue;
             }
             $this->files[$directory] = $files;
         }
-        // dd($this->files);
     }
 
     private function parseMarkdownFiles(): void
@@ -90,6 +96,13 @@ trait ImportProjectTrait
             foreach ($this->getErrors() as $error) {
                 Log::error($error);
             }
+        }
+    }
+
+    private function logSuccess(): void
+    {
+        foreach ($this->getSuccess() as $log) {
+            Log::info($log);
         }
     }
 }

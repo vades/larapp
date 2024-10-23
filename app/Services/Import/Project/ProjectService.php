@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Log;
 class ProjectService
 {
     private string $project;
+
+    private array $errors = [];
+
+    private array $success = [];
     /**
      * Create a new class instance.
      */
@@ -36,9 +40,11 @@ class ProjectService
         try {
             $categoryService = new ProjectCategoryService($this->project);
             $categoryService->handle();
+           array_push($this->errors, $categoryService->getErrors());
 
             $postService = new ProjectPostService($this->project);
             $postService->handle();
+            array_push($this->errors, $postService->getErrors());
 
 
             //dd('Importing DEV project data to the database');

@@ -28,6 +28,8 @@ class ProjectCategoryService
             $this->parseImportDir();
             $this->parseImportFiles();
             $this->parseMarkdownFiles();
+            $this->logErrors();
+            $this->logSuccess();
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -75,8 +77,9 @@ class ProjectCategoryService
                     'options' => json_encode($data->options),
                 ]
             );
+            $this->success[] = 'SUCCESS: Category saved for project: '  . $data->project_id . ' | '. $data->title . ' | '.  $data->uuid;
         } catch (Exception $e) {
-            $this->errors[] = 'ERROR: Unable to save category: ' . $data->title . ' | '.  $data->uuid;
+            $this->errors[] = 'ERROR: Unable to save category for project: '  . $data->project_id . ' | ' . $data->title . ' | '.  $data->uuid;
             $this->errors[] = $e->getMessage();
         }
     }
