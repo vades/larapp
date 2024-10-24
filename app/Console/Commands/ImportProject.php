@@ -19,7 +19,7 @@ class ImportProject extends Command
      *
      * @var string
      */
-    protected $description = 'Import DEV project data to the database';
+    protected $description = 'Import project data to the database';
 
     /**
      * Execute the console command.

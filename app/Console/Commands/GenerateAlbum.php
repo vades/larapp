@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Services\Import\Album\AlbumService;
+use Exception;
 use Illuminate\Console\Command;
 
 class GenerateAlbum extends Command
@@ -18,13 +20,19 @@ class GenerateAlbum extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generate album';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        //
+        try {
+            $service = new AlbumService();
+            $service->handle();
+
+        }catch (Exception $e) {
+            $this->error($e->getMessage());
+        }
     }
 }
