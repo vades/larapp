@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Import\Album;
+namespace App\Services\Album;
 
 use Exception;
 
-class AlbumService
+class AlbumGenerateService
 {
     /**
      * Create a new class instance.

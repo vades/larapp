@@ -12,6 +12,20 @@ return [
         'post' => 'app/imports/posts/',
         'place' => 'app/imports/places/',
     ],
+    'album' => [
+        'dir' => [
+            'source' => 'app/albums/',
+            'target' => 'app/albums/',
+        ],
+        'file' => [
+            'album' => 'albums.json',
+            'event' => 'events.json',
+            'image' => 'images.json',
+
+        ],
+        'source' => 'app/albums/',
+        'target' => 'app/imports/places/',
+    ],
     'headerNav' => [
             'blog' => $myAppNav['blogList'],
             'places' => $myAppNav['placeList'],

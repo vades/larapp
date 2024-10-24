@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Import\Album\AlbumService;
+use App\Services\Album\AlbumGenerateService;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -28,7 +28,7 @@ class GenerateAlbum extends Command
     public function handle()
     {
         try {
-            $service = new AlbumService();
+            $service = new AlbumGenerateService();
             $service->handle();
 
         }catch (Exception $e) {
