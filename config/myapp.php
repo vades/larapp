@@ -14,8 +14,8 @@ return [
     ],
     'album' => [
         'dir' => [
-            'source' => 'app/albums/',
-            'target' => 'app/albums/',
+            'source' => storage_path().'/app/albums',
+            'target' =>  storage_path().'/app/albums',
         ],
         'file' => [
             'album' => 'albums.json',
@@ -23,8 +23,8 @@ return [
             'image' => 'images.json',
 
         ],
-        'source' => 'app/albums/',
-        'target' => 'app/imports/places/',
+        'cover' => 'cover.jpg',
+        'url' => 'https://myapp.com/albums',
     ],
     'headerNav' => [
             'blog' => $myAppNav['blogList'],
