@@ -23,6 +23,8 @@ return [
             'image' => 'images.json',
 
         ],
+        'srcDir' => 'src',
+        'thumbDir' => 'thumb',
         'cover' => 'cover.jpg',
         'url' => 'https://myapp.com/albums',
     ],
