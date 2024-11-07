@@ -112,6 +112,7 @@ class AlbumGeneratorService
     {
         return [
             'id' =>($parentDir ? $parentDir .'/':'') .$directory,
+            'directory' => $directory,
             'parentId' => $parentDir ?? null,
             'src' =>$src,
             'title' => $iptc['title'] ?? $directory,
@@ -141,7 +142,8 @@ class AlbumGeneratorService
 
 
             foreach ($imageFiles as $imageFile) {
-               $this->parseImageFile($imageFile, $srcDir);
+
+               $this->parseImageFile($imageFile, $event);
             }
             //dd($imageFiles);
             $eventImages = [];
@@ -151,38 +153,53 @@ class AlbumGeneratorService
             dd($images);*/
         }
 
+        $targetFilePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.image');
+
+        $this->storeJsonFile($this->images, $targetFilePath);
+
     }
 
-    private function parseImageFile(string $imageFile, string $srcDir)
+    private function parseImageFile(string $imageFile, array $event)
     {
-        //dump($srcDir);
+
+        //   dd($event);
         if (file_exists($imageFile) && @getimagesize($imageFile,$imageData)) {
-           // $cover = $this->url . '/' . $directory . '/'.config('myapp.album.cover');
-            $iptc = $this->getIptcData($imageData);
             $fileName = basename($imageFile);
-            dump($fileName);
+            $imagePath = $event['id'].'/'.config('myapp.album.srcDir').'/'.$fileName;
+            $thumbPath = $event['id'].'/'.config('myapp.album.thumbDir').'/'.$fileName;
+           // $cover = $this->url . '/' . $directory . '/'.config('myapp.album.cover');
+            $options = [
+                'id' => $imagePath,
+                'directory' => $event['directory'],
+                'parentId' => $event['id'],
+                'src' => $this->url . '/' . $imagePath,
+                'thumbnail' =>$this->url . '/' . $thumbPath,
+                'iptc' => $this->getIptcData($imageData),
+                'fileName' =>$fileName,
+            ];
+            $this->images[] = $this->parseAlbumImage($options);
+
 
         }else{
-            $this->errors[] = 'WARNING: Invalid cover image found in directory: ' . $imageFile;
+            $this->errors[] = 'WARNING: Invalid  image found: ' . $imageFile;
         }
 
     }
 
-    private function parseAlbumImage(string $fileName, string $src, array $iptc, string $parentDir): array
+    private function parseAlbumImage(array $options): array
     {
         return [
-            'id' =>$parentDir .'/' .$fileName,
-            'parentId' => $parentDir,
-            'src' =>$src,
-            'thumbnail' =>$src,
-            'title' => $iptc['title'] ?? $fileName,
-            'createdAt' => new Carbon($iptc['date'] ?? null),
-            'description' =>$iptc['description'] ?? null,
-            'author' =>$iptc['author'] ?? null,
+            'id' => $options['id'],
+            'directory' => $options['directory'],
+            'parentId' => $options['parentId'],
+            'src' => $options['src'],
+            'thumbnail' => $options['thumbnail'] ?? null,
+            'title' => $options['iptc']['title'] ?? $options['directory'],
+            'createdAt' => new Carbon($options['iptc']['date'] ?? null),
+            'description' => $options['iptc']['description'] ?? null,
+            'author' => $options['iptc']['author'] ?? null,
 
         ];
-
-
 
     }
     private function getIptcData($imageData)
