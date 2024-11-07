@@ -40,6 +40,9 @@ class AlbumGeneratorService
 
     }
 
+    /**
+     * @throws Exception
+     */
     public function handle(): void
     {
 
@@ -57,7 +60,7 @@ class AlbumGeneratorService
         }
 
         $directories = array_map('basename', $directories);
-        $this->albums = $this->parseCoverDirectories($directories, $sourceDir);
+        $this->albums = $this->parseCoverFiles($directories, $sourceDir);
         $filePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.album');
 
         $this->storeJsonFile( $this->albums , $filePath);
@@ -74,7 +77,7 @@ class AlbumGeneratorService
 
             $directories = array_map('basename', $directories);
 
-            $events[] = $this->parseCoverDirectories($directories, $sourceDir.'/'.$album['id'], $album['id']);
+            $events[] = $this->parseCoverFiles($directories, $sourceDir.'/'.$album['id'], $album['id']);
         }
         $this->events = array_merge(...$events);;
         $targetFilePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.event');
@@ -83,13 +86,12 @@ class AlbumGeneratorService
 
     }
 
-    private function parseCoverDirectories(array $directories, string $sourceDir, ?string $parentDir = null): array
+    private function parseCoverFiles(array $directories, string $sourceDir, ?string $parentDir = null): array
     {
         $items = [];
         foreach ($directories as $directory) {
             $path = $sourceDir . '/' . $directory;
             $coverPath = $path . '/' . config('myapp.album.cover');
-            $cover = null;
             if (!file_exists($coverPath)) {
                 $this->errors[] = 'WARNING: No cover found in directory: ' . $path;
                 continue;
@@ -102,33 +104,24 @@ class AlbumGeneratorService
                 $this->errors[] = 'WARNING: Invalid cover image found in directory: ' . $path;
                 continue;
             }
-            $items[] = $this->parseAlbumCover($directory, $cover, $iptc, $parentDir);
+            $options = [
+                'id' =>($parentDir ? $parentDir .'/':'') .$directory,
+                'directory' => $directory,
+                'parentId' => $parentDir ?? null,
+                'src' => $cover,
+                'thumbnail' =>null,
+                'iptc' => $this->getIptcData($imageData),
+            ];
+            $items[] =$this->parseAlbumImage($options);
 
 
         }
         return $items;
     }
-    private function parseAlbumCover(string $directory, string $src, array $iptc, ?string $parentDir = null): array
-    {
-        return [
-            'id' =>($parentDir ? $parentDir .'/':'') .$directory,
-            'directory' => $directory,
-            'parentId' => $parentDir ?? null,
-            'src' =>$src,
-            'title' => $iptc['title'] ?? $directory,
-            'createdAt' => new Carbon($iptc['date'] ?? null),
-            'description' =>$iptc['description'] ?? null,
-        ];
-
-
-
-    }
 
     private function readImageDir($sourceDir): void
     {
-        //dump($sourceDir);
-        $images = [];
-        foreach ($this->events as $event) {
+       foreach ($this->events as $event) {
             $srcDir = $sourceDir .'/'. $event['id']. '/'.config('myapp.album.srcDir');
             if (!is_dir( $srcDir)) {
                 throw new Exception('No image directories found in: ' . $this->sourceDir);
@@ -145,12 +138,6 @@ class AlbumGeneratorService
 
                $this->parseImageFile($imageFile, $event);
             }
-            //dd($imageFiles);
-            $eventImages = [];
-
-
-           /* $images[] = $this->parseCoverDirectories($directories, $sourceDir.'/'.$event['id'], $event['id']);
-            dd($images);*/
         }
 
         $targetFilePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.image');
@@ -159,15 +146,13 @@ class AlbumGeneratorService
 
     }
 
-    private function parseImageFile(string $imageFile, array $event)
+    private function parseImageFile(string $imageFile, array $event): void
     {
 
-        //   dd($event);
         if (file_exists($imageFile) && @getimagesize($imageFile,$imageData)) {
             $fileName = basename($imageFile);
             $imagePath = $event['id'].'/'.config('myapp.album.srcDir').'/'.$fileName;
             $thumbPath = $event['id'].'/'.config('myapp.album.thumbDir').'/'.$fileName;
-           // $cover = $this->url . '/' . $directory . '/'.config('myapp.album.cover');
             $options = [
                 'id' => $imagePath,
                 'directory' => $event['directory'],
@@ -175,7 +160,6 @@ class AlbumGeneratorService
                 'src' => $this->url . '/' . $imagePath,
                 'thumbnail' =>$this->url . '/' . $thumbPath,
                 'iptc' => $this->getIptcData($imageData),
-                'fileName' =>$fileName,
             ];
             $this->images[] = $this->parseAlbumImage($options);
 
@@ -215,12 +199,6 @@ class AlbumGeneratorService
         }
         return $return;
     }
-
-
-
-
-
-
 
     private function storeJsonFile($array, $targetFilePath): void
     {
