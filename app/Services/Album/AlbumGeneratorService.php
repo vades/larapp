@@ -6,6 +6,16 @@ use Exception;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
+class DataResource
+{
+    public array $data = [];
+    public string $message = '';
+    public string $createdAt = '';
+     public array $meta = [
+        'total' => 0,
+    ];
+}
+
 class AlbumGeneratorService
 {
     private string $sourceDir;
@@ -13,9 +23,9 @@ class AlbumGeneratorService
 
     private string $url;
 
-    private array $albums = [];
-    private array $events = [];
-    private array $images = [];
+    private  DataResource $albums;
+    private DataResource $events;
+    private DataResource $images;
 
     private array $errors = [];
 
@@ -37,6 +47,9 @@ class AlbumGeneratorService
         $this->sourceDir = config('myapp.album.dir.source');
         $this->targetDir = config('myapp.album.dir.target');
         $this->url = config('myapp.album.url');
+        $this->images = new DataResource();
+        $this->albums = new DataResource();
+        $this->events = new DataResource();
 
     }
 
@@ -48,7 +61,7 @@ class AlbumGeneratorService
 
         $this->readAlbumDir($this->sourceDir);
         $this->readEventDir($this->sourceDir);
-        $this->readImageDir($this->sourceDir);
+       $this->readImageDir($this->sourceDir);
 
     }
 
@@ -60,16 +73,17 @@ class AlbumGeneratorService
         }
 
         $directories = array_map('basename', $directories);
-        $this->albums = $this->parseCoverFiles($directories, $sourceDir);
+        $this->albums->data = $this->parseCoverFiles($directories, $sourceDir);
         $filePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.album');
 
-        $this->storeJsonFile( $this->albums , $filePath);
+       $this->storeJsonFile($this->albums , $filePath);
     }
     private function readEventDir($sourceDir): void
     {
         $events = [];
-        foreach ($this->albums as $album) {
-            $directories = array_filter(glob($sourceDir .'/'. $album['id'].'/*'), 'is_dir');
+        foreach ($this->albums->data as $album) {
+             $directories = array_filter(glob($sourceDir .'/'. $album['id'].'/*'), 'is_dir');
+
 
             if (empty($directories)) {
                 throw new Exception('No event directories found in: ' . $this->sourceDir);
@@ -79,15 +93,16 @@ class AlbumGeneratorService
 
             $events[] = $this->parseCoverFiles($directories, $sourceDir.'/'.$album['id'], $album['id']);
         }
-        $this->events = array_merge(...$events);;
-        $targetFilePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.event');
 
+        $this->events->data = array_merge(...$events);;
+        $targetFilePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.event');
         $this->storeJsonFile($this->events, $targetFilePath);
 
     }
 
     private function parseCoverFiles(array $directories, string $sourceDir, ?string $parentDir = null): array
     {
+
         $items = [];
         foreach ($directories as $directory) {
             $path = $sourceDir . '/' . $directory;
@@ -116,12 +131,13 @@ class AlbumGeneratorService
 
 
         }
+
         return $items;
     }
 
     private function readImageDir($sourceDir): void
     {
-       foreach ($this->events as $event) {
+       foreach ($this->events->data as $event) {
             $srcDir = $sourceDir .'/'. $event['id']. '/'.config('myapp.album.srcDir');
             if (!is_dir( $srcDir)) {
                 throw new Exception('No image directories found in: ' . $this->sourceDir);
@@ -146,6 +162,8 @@ class AlbumGeneratorService
 
     }
 
+
+
     private function parseImageFile(string $imageFile, array $event): void
     {
 
@@ -161,7 +179,7 @@ class AlbumGeneratorService
                 'thumbnail' =>$this->url . '/' . $thumbPath,
                 'iptc' => $this->getIptcData($imageData),
             ];
-            $this->images[] = $this->parseAlbumImage($options);
+            $this->images->data[] = $this->parseAlbumImage($options);
 
 
         }else{
@@ -200,10 +218,15 @@ class AlbumGeneratorService
         return $return;
     }
 
-    private function storeJsonFile($array, $targetFilePath): void
+    private function storeJsonFile($dataResource, $targetFilePath): void
     {
-        if (count($array) > 0) {
-            $json = json_encode($array, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
+
+        if (count($dataResource->data) > 0) {
+            $dataResource->createdAt = date('Y-m-d H:i:s');
+            $dataResource->message = 'OK 200';
+            $dataResource->meta['total'] = count($dataResource->data);
+
+            $json = json_encode($dataResource, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
             if ($json === false) {
                 $this->errors[] = 'ERROR: Failed to generate JSON from albums array.';
                 return;
