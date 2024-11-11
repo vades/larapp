@@ -12,7 +12,8 @@
         "spatie/laravel-data": "^4.9",
         "spatie/laravel-sluggable": "^3.6",
         "spatie/yaml-front-matter": "^2.0",
-      "ext-exif": "*"
+      "ext-exif": "*",
+      "ext-gd": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

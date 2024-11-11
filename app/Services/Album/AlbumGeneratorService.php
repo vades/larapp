@@ -178,6 +178,7 @@ class AlbumGeneratorService
                 'src' => $this->url . '/' . $imagePath,
                 'thumbnail' =>$this->url . '/' . $thumbPath,
                 'iptc' => $this->getIptcData($imageData),
+                //'exif' => @exif_read_data($imageFile, 'ANY_TAG', true),
             ];
             $this->images->data[] = $this->parseAlbumImage($options);
 
@@ -200,6 +201,8 @@ class AlbumGeneratorService
             'createdAt' => new Carbon($options['iptc']['date'] ?? null),
             'description' => $options['iptc']['description'] ?? null,
             'author' => $options['iptc']['author'] ?? null,
+           // 'exif' => $options['exif'] ?? null,
+
 
         ];
 
@@ -216,6 +219,54 @@ class AlbumGeneratorService
             $return['date'] = $iptc['2#062'][0] ?? null;
         }
         return $return;
+    }
+
+    private function generateThumbnail(string $imageFile, string $thumbPath, int $thumbWidth = 150): bool
+    {
+        $imageInfo = getimagesize($imageFile);
+        if ($imageInfo === false) {
+            $this->errors[] = 'ERROR: Failed to get image size for: ' . $imageFile;
+            return false;
+        }
+
+        list($width, $height) = $imageInfo;
+        $thumbHeight = intval($height * $thumbWidth / $width);
+
+        $thumbnail = imagecreatetruecolor($thumbWidth, $thumbHeight);
+
+        switch ($imageInfo['mime']) {
+            case 'image/jpeg':
+                $source = imagecreatefromjpeg($imageFile);
+                break;
+            case 'image/png':
+                $source = imagecreatefrompng($imageFile);
+                break;
+            case 'image/gif':
+                $source = imagecreatefromgif($imageFile);
+                break;
+            default:
+                $this->errors[] = 'ERROR: Unsupported image type for: ' . $imageFile;
+                return false;
+        }
+
+        imagecopyresampled($thumbnail, $source, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $width, $height);
+
+        switch ($imageInfo['mime']) {
+            case 'image/jpeg':
+                imagejpeg($thumbnail, $thumbPath);
+                break;
+            case 'image/png':
+                imagepng($thumbnail, $thumbPath);
+                break;
+            case 'image/gif':
+                imagegif($thumbnail, $thumbPath);
+                break;
+        }
+
+        imagedestroy($source);
+        imagedestroy($thumbnail);
+
+        return true;
     }
 
     private function storeJsonFile($dataResource, $targetFilePath): void
