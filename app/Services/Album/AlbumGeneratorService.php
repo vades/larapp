@@ -139,11 +139,10 @@ class AlbumGeneratorService
     {
        foreach ($this->events->data as $event) {
             $srcDir = $sourceDir .'/'. $event['id']. '/'.config('myapp.album.srcDir');
+           $thumbDir = $sourceDir .'/'. $event['id']. '/'.config('myapp.album.thumbDir');
             if (!is_dir( $srcDir)) {
                 throw new Exception('No image directories found in: ' . $this->sourceDir);
             }
-
-            $eventImages = [];
             $imageFiles = glob($srcDir . '/*.{jpg,gif,png}', GLOB_BRACE);
             if (empty($imageFiles)) {
                 throw new Exception('No images found in: ' . $srcDir);
@@ -151,8 +150,8 @@ class AlbumGeneratorService
 
 
             foreach ($imageFiles as $imageFile) {
-
-               $this->parseImageFile($imageFile, $event);
+                dump($imageFile);
+               $this->parseImageFile($imageFile, $event, $thumbDir);
             }
         }
 
@@ -164,19 +163,26 @@ class AlbumGeneratorService
 
 
 
-    private function parseImageFile(string $imageFile, array $event): void
+    private function parseImageFile(string $imageFile, array $event, string $thumbDir): void
     {
+
 
         if (file_exists($imageFile) && @getimagesize($imageFile,$imageData)) {
             $fileName = basename($imageFile);
             $imagePath = $event['id'].'/'.config('myapp.album.srcDir').'/'.$fileName;
-            $thumbPath = $event['id'].'/'.config('myapp.album.thumbDir').'/'.$fileName;
+            $thumUrl =  $this->url . '/' . $event['id'].'/'.config('myapp.album.thumbDir').'/'.$fileName;
+            if (!is_dir($thumbDir)) {
+                mkdir($thumbDir, 0777, true);
+            }
+            $thumbPath = $thumbDir . '/' . $fileName;
+            dump($thumbPath);
+            $this->generateThumbnail($imageFile, $thumbPath);
             $options = [
                 'id' => $imagePath,
                 'directory' => $event['directory'],
                 'parentId' => $event['id'],
                 'src' => $this->url . '/' . $imagePath,
-                'thumbnail' =>$this->url . '/' . $thumbPath,
+                'thumbnail' =>$thumUrl,
                 'iptc' => $this->getIptcData($imageData),
                 //'exif' => @exif_read_data($imageFile, 'ANY_TAG', true),
             ];
