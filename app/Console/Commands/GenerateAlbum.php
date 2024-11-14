@@ -14,7 +14,7 @@ class GenerateAlbum extends Command
      *
      * @var string
      */
-    protected $signature = 'app:generate-album';
+    protected $signature = 'app:generate-album {--url=}';
 
     /**
      * The console command description.
@@ -28,9 +28,16 @@ class GenerateAlbum extends Command
      */
     public function handle()
     {
+        $url = $this->option('url');
+        if(empty($url)) {
+            $message = 'Album url is required. Please provide a album url using --url option';
+            $this->error($message);
+            Log::error($message);
+            return;
+        }
         $this->info('Generating albums: ');
         try {
-            $service = new AlbumGeneratorService();
+            $service = new AlbumGeneratorService($url);
             $service->handle();
 
             $errors = $service->getErrors();

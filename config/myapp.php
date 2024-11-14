@@ -27,7 +27,6 @@ return [
         'thumbDir' => 'thumb',
         'thumbWidth' => 200,
         'cover' => 'cover.jpg',
-        'url' => 'https://myapp.com/albums',
     ],
     'headerNav' => [
             'blog' => $myAppNav['blogList'],

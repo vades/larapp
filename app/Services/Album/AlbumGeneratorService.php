@@ -31,11 +31,11 @@ class AlbumGeneratorService
     }
 
 
-    public function __construct()
+    public function __construct(string $url)
     {
         $this->sourceDir = config('myapp.album.dir.source');
         $this->targetDir = config('myapp.album.dir.target');
-        $this->url = config('myapp.album.url');
+        $this->url = $url;
         $this->images = new AlbumDataResource();
         $this->albums = new AlbumDataResource();
         $this->events = new AlbumDataResource();
