@@ -2,19 +2,8 @@
 
 namespace App\Services\Album;
 
-use Exception;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
-
-class DataResource
-{
-    public array $data = [];
-    public string $message = '';
-    public string $createdAt = '';
-     public array $meta = [
-        'total' => 0,
-    ];
-}
+use Exception;
 
 class AlbumGeneratorService
 {
@@ -23,9 +12,9 @@ class AlbumGeneratorService
 
     private string $url;
 
-    private  DataResource $albums;
-    private DataResource $events;
-    private DataResource $images;
+    private AlbumDataResource $albums;
+    private AlbumDataResource $events;
+    private AlbumDataResource $images;
 
     private array $errors = [];
 
@@ -47,9 +36,9 @@ class AlbumGeneratorService
         $this->sourceDir = config('myapp.album.dir.source');
         $this->targetDir = config('myapp.album.dir.target');
         $this->url = config('myapp.album.url');
-        $this->images = new DataResource();
-        $this->albums = new DataResource();
-        $this->events = new DataResource();
+        $this->images = new AlbumDataResource();
+        $this->albums = new AlbumDataResource();
+        $this->events = new AlbumDataResource();
 
     }
 
@@ -61,7 +50,7 @@ class AlbumGeneratorService
 
         $this->readAlbumDir($this->sourceDir);
         $this->readEventDir($this->sourceDir);
-       $this->readImageDir($this->sourceDir);
+        $this->readImageDir($this->sourceDir);
 
     }
 
@@ -74,15 +63,16 @@ class AlbumGeneratorService
 
         $directories = array_map('basename', $directories);
         $this->albums->data = $this->parseCoverFiles($directories, $sourceDir);
-        $filePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.album');
+        $filePath = config('myapp.album.dir.target') . '/' . config('myapp.album.file.album');
 
-       $this->storeJsonFile($this->albums , $filePath);
+        $this->storeJsonFile($this->albums, $filePath);
     }
+
     private function readEventDir($sourceDir): void
     {
         $events = [];
         foreach ($this->albums->data as $album) {
-             $directories = array_filter(glob($sourceDir .'/'. $album['id'].'/*'), 'is_dir');
+            $directories = array_filter(glob($sourceDir . '/' . $album['id'] . '/*'), 'is_dir');
 
 
             if (empty($directories)) {
@@ -91,11 +81,11 @@ class AlbumGeneratorService
 
             $directories = array_map('basename', $directories);
 
-            $events[] = $this->parseCoverFiles($directories, $sourceDir.'/'.$album['id'], $album['id']);
+            $events[] = $this->parseCoverFiles($directories, $sourceDir . '/' . $album['id'], $album['id']);
         }
 
         $this->events->data = array_merge(...$events);;
-        $targetFilePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.event');
+        $targetFilePath = config('myapp.album.dir.target') . '/' . config('myapp.album.file.event');
         $this->storeJsonFile($this->events, $targetFilePath);
 
     }
@@ -112,22 +102,22 @@ class AlbumGeneratorService
                 continue;
             }
 
-            if (file_exists($coverPath) && @getimagesize($coverPath,$imageData)) {
-                $cover = $this->url . '/' . $directory . '/'.config('myapp.album.cover');
+            if (file_exists($coverPath) && @getimagesize($coverPath, $imageData)) {
+                $cover = $this->url . '/' . $directory . '/' . config('myapp.album.cover');
                 $iptc = $this->getIptcData($imageData);
-            }else{
+            } else {
                 $this->errors[] = 'WARNING: Invalid cover image found in directory: ' . $path;
                 continue;
             }
             $options = [
-                'id' =>($parentDir ? $parentDir .'/':'') .$directory,
+                'id' => ($parentDir ? $parentDir . '/' : '') . $directory,
                 'directory' => $directory,
                 'parentId' => $parentDir ?? null,
                 'src' => $cover,
-                'thumbnail' =>null,
+                'thumbnail' => null,
                 'iptc' => $this->getIptcData($imageData),
             ];
-            $items[] =$this->parseAlbumImage($options);
+            $items[] = $this->parseAlbumImage($options);
 
 
         }
@@ -137,10 +127,10 @@ class AlbumGeneratorService
 
     private function readImageDir($sourceDir): void
     {
-       foreach ($this->events->data as $event) {
-            $srcDir = $sourceDir .'/'. $event['id']. '/'.config('myapp.album.srcDir');
-           $thumbDir = $sourceDir .'/'. $event['id']. '/'.config('myapp.album.thumbDir');
-            if (!is_dir( $srcDir)) {
+        foreach ($this->events->data as $event) {
+            $srcDir = $sourceDir . '/' . $event['id'] . '/' . config('myapp.album.srcDir');
+            $thumbDir = $sourceDir . '/' . $event['id'] . '/' . config('myapp.album.thumbDir');
+            if (!is_dir($srcDir)) {
                 throw new Exception('No image directories found in: ' . $this->sourceDir);
             }
             $imageFiles = glob($srcDir . '/*.{jpg,gif,png}', GLOB_BRACE);
@@ -150,46 +140,43 @@ class AlbumGeneratorService
 
 
             foreach ($imageFiles as $imageFile) {
-                dump($imageFile);
-               $this->parseImageFile($imageFile, $event, $thumbDir);
+                $this->parseImageFile($imageFile, $event, $thumbDir);
             }
         }
 
-        $targetFilePath =  config('myapp.album.dir.target').'/'.config('myapp.album.file.image');
+        $targetFilePath = config('myapp.album.dir.target') . '/' . config('myapp.album.file.image');
 
         $this->storeJsonFile($this->images, $targetFilePath);
 
     }
 
 
-
     private function parseImageFile(string $imageFile, array $event, string $thumbDir): void
     {
 
 
-        if (file_exists($imageFile) && @getimagesize($imageFile,$imageData)) {
+        if (file_exists($imageFile) && @getimagesize($imageFile, $imageData)) {
             $fileName = basename($imageFile);
-            $imagePath = $event['id'].'/'.config('myapp.album.srcDir').'/'.$fileName;
-            $thumUrl =  $this->url . '/' . $event['id'].'/'.config('myapp.album.thumbDir').'/'.$fileName;
+            $imagePath = $event['id'] . '/' . config('myapp.album.srcDir') . '/' . $fileName;
+            $thumUrl = $this->url . '/' . $event['id'] . '/' . config('myapp.album.thumbDir') . '/' . $fileName;
             if (!is_dir($thumbDir)) {
                 mkdir($thumbDir, 0777, true);
             }
             $thumbPath = $thumbDir . '/' . $fileName;
-            dump($thumbPath);
-            $this->generateThumbnail($imageFile, $thumbPath);
+            $this->generateThumbnail($imageFile, $thumbPath, config('myapp.album.thumbWidth'));
             $options = [
                 'id' => $imagePath,
                 'directory' => $event['directory'],
                 'parentId' => $event['id'],
                 'src' => $this->url . '/' . $imagePath,
-                'thumbnail' =>$thumUrl,
+                'thumbnail' => $thumUrl,
                 'iptc' => $this->getIptcData($imageData),
                 //'exif' => @exif_read_data($imageFile, 'ANY_TAG', true),
             ];
             $this->images->data[] = $this->parseAlbumImage($options);
 
 
-        }else{
+        } else {
             $this->errors[] = 'WARNING: Invalid  image found: ' . $imageFile;
         }
 
@@ -207,16 +194,17 @@ class AlbumGeneratorService
             'createdAt' => new Carbon($options['iptc']['date'] ?? null),
             'description' => $options['iptc']['description'] ?? null,
             'author' => $options['iptc']['author'] ?? null,
-           // 'exif' => $options['exif'] ?? null,
+            // 'exif' => $options['exif'] ?? null,
 
 
         ];
 
     }
+
     private function getIptcData($imageData)
     {
         $return = array('title' => null, 'description' => null, 'author' => null, 'tags' => null);
-        if(isset($imageData['APP13'])) {
+        if (isset($imageData['APP13'])) {
             $iptc = iptcparse($imageData['APP13']);
             $return['title'] = $iptc['2#005'][0] ?? null;
             $return['description'] = $iptc['2#120'][0] ?? null;
@@ -283,7 +271,7 @@ class AlbumGeneratorService
             $dataResource->message = 'OK 200';
             $dataResource->meta['total'] = count($dataResource->data);
 
-            $json = json_encode($dataResource, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
+            $json = json_encode($dataResource, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             if ($json === false) {
                 $this->errors[] = 'ERROR: Failed to generate JSON from albums array.';
                 return;
@@ -304,11 +292,11 @@ class AlbumGeneratorService
     {
         $exifData = @exif_read_data($coverPath, 'ANY_TAG', true);
         // Additionnal informations from Lightroom
-        getimagesize( $coverPath, $infos);
-        if ( isset($infos['APP13']) ) {
+        getimagesize($coverPath, $infos);
+        if (isset($infos['APP13'])) {
             print_r(iptcparse($infos['APP13']));
         }
-         if ($exifData === false) {
+        if ($exifData === false) {
             $this->errors[] = 'ERROR: Failed to read EXIF data from image: ' . $coverPath;
             return ['title' => null, 'description' => null];
         }

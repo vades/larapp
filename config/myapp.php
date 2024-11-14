@@ -25,6 +25,7 @@ return [
         ],
         'srcDir' => 'src',
         'thumbDir' => 'thumb',
+        'thumbWidth' => 200,
         'cover' => 'cover.jpg',
         'url' => 'https://myapp.com/albums',
     ],
