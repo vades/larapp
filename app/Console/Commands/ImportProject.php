@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Services\Import\Project\ProjectService;
+use Exception;
 use Illuminate\Console\Command;
 
 class ImportProject extends Command
@@ -47,7 +48,7 @@ class ImportProject extends Command
             foreach ($success as $message) {
                 $this->info($message);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error($e->getMessage());
         }
 
