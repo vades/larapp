@@ -17,6 +17,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
+           'uuid' => fake()->uuid(),
             'parent_id' => 0,
             'project_id' => 1,
             'user_id' => 1,

@@ -21,6 +21,13 @@
 - `php artisan tinker`
 - `php artisan make:scope ProjectScope`
 - `php artisan make:trait`
+- `php artisan make:command CustomTask`
+- `php artisan make:class CustomClass`
+- 
+
+## Imports
+- php artisan app:import-project --name dev
+- php artisan app:generate-album {--url=}
 
 ```
 -c, --controller Create a new controller for the model
@@ -46,4 +53,14 @@ composer dump-autoload
  base_path();    // '/var/www/mysite'
   app_path();     // '/var/www/mysite/app'
   storage_path(); // '/var/www/mysite/storage'
+```
+
+
+```sql
+delete from posts where id > 0;
+delete from categories where id > 0;
+delete from tags where id > 0;
+delete from category_post where post_id > 0;
+delete from post_tag where post_id > 0;
+
 ```

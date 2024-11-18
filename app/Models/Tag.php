@@ -10,6 +10,15 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'project_id',
+        'tag_type',
+        'is_published',
+        'views_count',
+        'lang',
+        'name',
+    ];
+
     public function posts()
     {
         return $this->belongsToMany(Post::class);

@@ -3,6 +3,31 @@ $myAppNav = require_once 'myappnav.php';
 return [
     'name' => 'MyApp',
     'projectId' => env('PROJECT_ID', 1),
+    'importsDir' => 'app/imports/',
+    'projects'=> [
+        'dev' => 1,
+        'ivnbg' => 2,
+    ],
+    'importDir' => [
+        'post' => 'app/imports/posts/',
+        'place' => 'app/imports/places/',
+    ],
+    'album' => [
+        'dir' => [
+            'source' => storage_path().'/app/albums',
+            'target' =>  storage_path().'/app/albums',
+        ],
+        'file' => [
+            'album' => 'albums.json',
+            'event' => 'events.json',
+            'image' => 'images.json',
+
+        ],
+        'srcDir' => 'src',
+        'thumbDir' => 'thumb',
+        'thumbWidth' => 200,
+        'cover' => 'cover.jpg',
+    ],
     'headerNav' => [
             'blog' => $myAppNav['blogList'],
             'places' => $myAppNav['placeList'],
