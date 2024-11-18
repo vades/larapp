@@ -18,7 +18,7 @@
         <!-- Carousel wrapper -->
         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
             <!-- Item 1 -->
-            <div class="duration-700 ease-in-out" data-carousel-item>
+            <div class="hidden duration-700 ease-in-out" data-carousel-item x-init="$el.classList.remove('hidden')">
                 <img src="https://dev.ivnbg.com/albums/nuremberg/fabrikgut-hammer/large/01.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
             </div>
             <!-- Item 2 -->

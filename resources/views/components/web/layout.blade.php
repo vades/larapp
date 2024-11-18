@@ -8,6 +8,7 @@
         <title>{{ $title ?? 'LARAPP' }}</title>
 
         @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
     <body>
     <div class="flex flex-col h-screen justify-between">
