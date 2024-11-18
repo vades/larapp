@@ -23,6 +23,7 @@
 - `php artisan make:trait`
 - `php artisan make:command CustomTask`
 - `php artisan make:class CustomClass`
+- 
 
 ## Imports
 - php artisan app:import-project --name dev
