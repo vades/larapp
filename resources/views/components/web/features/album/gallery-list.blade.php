@@ -1,15 +1,18 @@
 <x-web.layout :title="$page->metaTitle" :description="$page->metaDescription" :keywords="$page->keywords">
     <x-web.partials.page-header :page="$page" />
-    <section  x-data="{ activeIndex: 0, items: $el.querySelectorAll('[data-carousel-item]'), showLightbox: false }"
+    <section  x-data="{ activeIndex: 0, items: $el.querySelectorAll('[data-carousel-item]'), showLightbox: true }"
               x-init="items[0].classList.remove('hidden')">
-        <article id="controls-carousel" class="relative w-full" x-show="showLightbox">
+        <article id="controls-carousel" class="relative overflow-hidden shadow-lg bg-black h-[calc(100vh-20%)] mx-auto" x-show="showLightbox">
+            di
             <!-- Carousel wrapper -->
-            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+            <div class="flex items-center justify-center _h-80 _md:h-96">
                 @foreach(collect($images) as $item)
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{$item->src}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                    <figure class="hidden duration-700 ease-in-out rounded-lg" data-carousel-item>
+                        <img src="{{$item->src}}" class="max-w-full rounded-lg border-2 border-silver max-h-[600px] "
                              alt="{{ $item->title}}">
-                    </div>
+                        <figcaption class="text-white mt-4">{{ $item->title}}</figcaption>
+                    </figure>
+
                 @endforeach
             </div>
             <!-- Slider controls -->
