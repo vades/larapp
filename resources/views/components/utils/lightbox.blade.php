@@ -66,7 +66,7 @@
         @foreach(collect($images) as $index => $item)
             <x-utils.card class="bg-skin-base">
                 <x-slot name="header">
-                    <img class="mr-auto ml-auto image-thumbnail"
+                    <img class="mr-auto ml-auto image-thumbnail w-64 h-64 object-cover transform transition-transform duration-300 hover:scale-110"
                          src="{{$item->thumbnail}}"
                          alt="{{ $item->title}}"
                          @click="showLightbox = true,items[activeIndex].classList.add('hidden'); activeIndex = {{ $index }}; items[activeIndex].classList.remove('hidden')">
@@ -77,4 +77,5 @@
 
 
 </section>
+    
 @endisset
