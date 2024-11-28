@@ -9,7 +9,7 @@
                     This is a modal title
                 </x-slot>
                 <x-slot name="body">
-                    <article {{$attributes->class(['flex items-center gap-4 h-[60rem]'])}} x-show="showLightbox">
+                    <article {{$attributes->class(['flex items-center gap-4 h-[75%]'])}} x-show="showLightbox">
                         <div class="w-20 h-full">
                             <button type="button"
                                     class="flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
@@ -70,11 +70,11 @@
                         </div>
                     </article>
                 </x-slot>
-                <x-slot name="footer">
+               {{--  <x-slot name="footer">
                     <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
                             @click="close()">Close (ESC)
                     </button>
-                </x-slot>
+                </x-slot> --}}
             </x-utils.modal>
 
             <div class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5">
