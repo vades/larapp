@@ -1,8 +1,9 @@
 <?php
 $myAppNav = require_once 'myappnav.php';
 return [
-    'name' => 'MyApp',
+    'name' => env('APP_NAME'),
     'projectId' => env('PROJECT_ID', 1),
+    'project' => env('PROJECT_NAME', 'dev'),
     'importsDir' => 'app/imports/',
     'projects'=> [
         'dev' => 1,
