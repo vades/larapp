@@ -1,9 +1,11 @@
 <?php
-$myAppNav = require_once 'myappnav.php';
+$myAppNav = require_once 'myapp/myapp_nav.php';
+$maAppProjects = require_once 'myapp/myapp_project.php';
 return [
-    'name' => env('APP_NAME'),
-    'projectId' => env('PROJECT_ID', 1),
-    'project' => env('PROJECT_NAME', 'dev'),
+    'appName' => env('APP_NAME'),
+    'projectId' => $maAppProjects[request()->getHost()]['id'] ?? 1,
+    'project' => $maAppProjects[ request()->getHost()]['name'] ?? 'dev',
+    'projectLabel' => $maAppProjects[ request()->getHost()]['label'] ?? 'DEV Localhost',
     'importsDir' => 'app/imports/',
     'projects'=> [
         'dev' => 1,

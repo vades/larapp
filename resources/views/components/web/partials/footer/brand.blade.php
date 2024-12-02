@@ -1,3 +1,3 @@
 <div>
-    &copy; {{ date('Y') }} {{ config('myapp.name') }}
+    &copy; {{ date('Y') }} {{ config('myapp.projectLabel') }}
 </div>
