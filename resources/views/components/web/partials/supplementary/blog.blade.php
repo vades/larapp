@@ -1,9 +1,9 @@
 <nav>
     <ul>
-        <li><a class="font-bold">Blog</a></li>
+        <li class="font-bold">Blog</li>
 
         @foreach(config('myapp.supplementaryNav.blog') as $key => $val)
-            <li><a href="{{ route($val['name'], $val['params'] ?? []) }}">{{ $val['name'] }}</a></li>
+            <li><a class="text-skin-supplementary hover:text-skin-supplementary-muted" href="{{ route($val['name'], $val['params'] ?? []) }}">{{ $val['name'] }}</a></li>
 
         @endforeach
     </ul>
