@@ -1,11 +1,14 @@
 <?php
+use Illuminate\Http\Request;
+$request = Request::capture();
 $myAppNav = require_once 'myapp/myapp_nav.php';
 $maAppProjects = require_once 'myapp/myapp_project.php';
 return [
     'appName' => env('APP_NAME'),
-    'projectId' => $maAppProjects[request()->getHost()]['id'] ?? 1,
-    'project' => $maAppProjects[ request()->getHost()]['name'] ?? 'dev',
-    'projectLabel' => $maAppProjects[ request()->getHost()]['label'] ?? 'DEV Localhost',
+    'projectId' => $maAppProjects[$request->host()]['id'] ?? 1,
+    'project' => $maAppProjects[$request->host()]['name'] ?? 'dev',
+    'projectLabel' => $maAppProjects[$request->host()]['label'] ?? 'DEV Localhost',
+    'projectImages' => $maAppProjects[$request->host()]['label'] ?? 'DEV Localhost',
     'importsDir' => 'app/imports/',
     'projects'=> [
         'dev' => 1,

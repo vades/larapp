@@ -16,18 +16,3 @@ return [
         'label' => 'ivnbg.com',
     ],
 ];
-
-/*function myappGetProjectBy22(string $key)
-{
-    return MYAPP_PROJECTS['127.0.0.1'][$key] ?? null;
-}*/
-
-/*function myappGetProjectId(): int | null
-{
-    return myappGetProjectBy( 'id');
-}
-
-function myappGetProjectName(): string | null
-{
-    return myappGetProjectBy('name');
-}*/
