@@ -30,10 +30,10 @@ export default {
             },
             backgroundColor: {
                 skin: {
-                    'base': 'var(--color-fill-base)',
-                    'accent': 'var(--color-fill-accent)',
-                    'header': 'var(--color-fill-header)',
-                    'footer': 'var(--color-fill-footer)',
+                    'base': 'var(--color-bg-base)',
+                    'accent': 'var(--color-bg-accent)',
+                    'header': 'var(--color-bg-header)',
+                    'footer': 'var(--color-bg-footer)',
                     'info': 'var(--color-bg-info)',
                     'success': 'var(--color-bg-success)',
                     'warning': 'var( --color-bg-warning)',
