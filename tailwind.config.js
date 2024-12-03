@@ -15,6 +15,7 @@ export default {
                     'muted': 'var(--color-text-muted)',
                     'inverted': 'var(--color-text-inverted)',
                     'accent': 'var(--color-text-accent)',
+                    'h1': 'var(--color-text-h1)',
                     'heading': 'var(--color-text-heading)',
                     'link': 'var(--color-text-link)',
                     'link-hover': 'var(--color-text-link-hover)',
@@ -32,6 +33,7 @@ export default {
             },
             backgroundColor: {
                 skin: {
+                    'body': 'var(--color-bg-body)',
                     'base': 'var(--color-bg-base)',
                     'accent': 'var(--color-bg-accent)',
                     'header': 'var(--color-bg-header)',
