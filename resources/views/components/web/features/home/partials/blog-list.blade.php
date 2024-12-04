@@ -1,9 +1,9 @@
 @inject('carbon', 'Carbon\Carbon')
 @props(['posts'])
-<section {{$attributes->class(['md:grid md:grid-cols-2 md:gap-4'])}}>
+<section {{$attributes->class(['md:grid md:grid-cols-2 md:gap-4 text-skin-blog'])}}>
     @foreach($posts as $item)
-        <a href="{{ route('blogItem',  ['postId'=>$item->slug]) }}">
-            <x-utils.panel class="bg-skin-base">
+        <a class="text-skin-place" href="{{ route('blogItem',  ['postId'=>$item->slug]) }}">
+            <x-utils.panel class="bg-skin-blog">
                 <x-slot name="header">
                     <figure class="mb-3 md:mr-3">
                         <img src="{{$item->image_url}}"

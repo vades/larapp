@@ -29,6 +29,10 @@ export default {
                     'success': 'var(--color-text-success)',
                     'warning': 'var(--color-text-warning)',
                     'danger': 'var(--color-text-danger)',
+                    'featured': 'var(--color-text-featured)',
+                    'blog': 'var(--color-text-blog)',
+                    'place': 'var(--color-text-place)',
+                    'album': 'var(--color-text-album)',
                 },
             },
             backgroundColor: {
@@ -43,6 +47,10 @@ export default {
                     'success': 'var(--color-bg-success)',
                     'warning': 'var( --color-bg-warning)',
                     'danger': 'var(--color-bg-danger)',
+                    'featured': 'var(--color-bg-featured)',
+                    'blog': 'var(--color-bg-blog)',
+                    'place': 'var(--color-bg-place)',
+                    'album': 'var(--color-bg-album)',
 
                 },
             },
@@ -56,6 +64,7 @@ export default {
                     'success': 'var(--color-border-success)',
                     'warning': 'var(--color-border-warning)',
                     'danger': 'var(--color-border-danger)',
+
                 },
             },
             fill: {

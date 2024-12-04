@@ -19,7 +19,11 @@
   --color-text-success: #03543f;
   --color-text-warning: #723b13;
   --color-text-danger: #9b1c1c;
-  --color-border-base: #bccbf6;
+  --color-text-featured:#0a0a0a;
+  --color-text-blog: #0a0a0a;
+  --color-text-place: #0a0a0a;
+  --color-text-album: #0a0a0a;
+  --color-border-base: #0a0a0a;
   --color-border-muted: #f4f6fd;
   --color-border-footer: #bccbf6;
   --color-border-supplementary: #bccbf6;
@@ -37,6 +41,10 @@
   --color-bg-header:  #1d4ed8;
   --color-bg-supplementary: #e9eefc;
   --color-bg-footer: #e9eefc;
+  --color-bg-featured: #f8fafc;
+  --color-bg-blog: #f8fafc;
+  --color-bg-place: #f8fafc;
+  --color-bg-album: #f8fafc;
   --color-fill-icon: #ffffff;
 }
 .dark {
