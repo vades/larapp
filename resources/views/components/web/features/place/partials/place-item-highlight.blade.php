@@ -1,8 +1,8 @@
 @props(['highlights'])
 <section {{$attributes->class(['grid grid-cols-2 gap-2 md:grid-cols-6 lg:grid-cols-8'])}}>
     @foreach($highlights as $item)
-        <a href="{{ route('placeItem',  ['placeId'=>$item->slug]) }}">
-            <x-utils.card class="bg-skin-base">
+        <a class="text-skin-place" href="{{ route('placeItem',  ['placeId'=>$item->slug]) }}">
+            <x-utils.card class="bg-skin-place">
                 <x-slot name="header">
                     <img class="mr-auto ml-auto"
                          src="{{$item->image_url}}"

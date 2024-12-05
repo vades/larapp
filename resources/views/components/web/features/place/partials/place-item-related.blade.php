@@ -1,8 +1,8 @@
 @props(['related'])
 <section {{$attributes->class(['md:grid md:grid-cols-2 md:gap-4'])}}>
     @foreach($related as $item)
-        <a href="{{ route('placeItem',  ['placeId'=>$item->slug]) }}">
-            <x-utils.panel class="bg-skin-base">
+        <a class="text-skin-place" href="{{ route('placeItem',  ['placeId'=>$item->slug]) }}">
+            <x-utils.panel class="bg-skin-place">
                 <x-slot name="header">
                     <figure class="mb-3 md:mr-3">
                         <img src="{{$item->image_url}}"

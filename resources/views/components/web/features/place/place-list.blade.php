@@ -4,8 +4,8 @@
     <x-web.partials.page-header :page="$page" />
     <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:gap-3 md:grid-cols-3 lg:grid-cols-4">
         @foreach($places as $item)
-            <a href="{{ route('placeItem',  ['placeId'=>$item->slug]) }}">
-                <x-utils.card class="bg-skin-base">
+            <a class="text-skin-place" href="{{ route('placeItem',  ['placeId'=>$item->slug]) }}">
+                <x-utils.card class="bg-skin-place">
                     <x-slot name="header">
                         <img class="mr-auto ml-auto"
                              src="{{$item->image_url}}"
@@ -20,8 +20,8 @@
                     </x-slot>
                     <x-slot name="footer"
                             class="p-3">
-                        <div>
-                            <span class="btn btn-primary">Read More</span>
+                        <div class="text-center">
+                            <span class="read-more">Read More</span>
                         </div>
                     </x-slot>
                 </x-utils.card>

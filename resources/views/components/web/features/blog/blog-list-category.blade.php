@@ -16,8 +16,8 @@
                         </div>
                     </x-slot>
                     <x-slot name="footer" class="p-3">
-                        <div>
-                            <span class="btn btn-primary">Show ({{ $category->posts_count }}) articles</span>
+                        <div class="text-center">
+                            <span class="read-more">Show ({{ $category->posts_count }}) articles</span>
                         </div>
                     </x-slot>
                 </x-utils.card>
