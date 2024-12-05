@@ -1,7 +1,4 @@
-@php
-    $classes = 'flex gap-4 flex-col md:flex-row md:items-start mb-4';
-@endphp
-<header {{$attributes->class([$classes])}}>
+<header {{$attributes->class(['flex gap-4 flex-col md:flex-row md:items-start mb-4'])}}>
     @if(isset($image))
         <figure {{$image->attributes->class([])}}>{{$image}}</figure>
     @endif

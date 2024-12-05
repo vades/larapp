@@ -1,12 +1,12 @@
 @inject('carbon', 'Carbon\Carbon')
 <x-web.layout :title="$post->metaTitle ?? null" :description="$post->metaDescription ?? null" :keywords="$post->keywords ?? null">
-    <x-utils.page-header>
+    <x-utils.page-header class="text-skin-blog">
         <x-slot name="image">
             <img class="md:max-w-xs border-4 border-skin-muted drop-shadow-lg"
                  src="{{$post->image_url}}"
                  alt="{{ $post->title }}">
         </x-slot>
-        <x-slot name="title">
+        <x-slot name="title" class="text-skin-blog">
             {{ $post->title }}
         </x-slot>
         <x-slot name="subtitle">
@@ -20,7 +20,7 @@
             <span class="posts-date">{{ $carbon::parse($post->createdAt)->format('Y-m-d') }}</span>
         </x-slot>
     </x-utils.page-header>
-    <article>
+    <article class="text-skin-blog">
         {!! $post->content !!}
     </article>
     @if(isset($post->inTags))
