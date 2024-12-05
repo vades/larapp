@@ -4,7 +4,7 @@
              @keydown.window="closeOnEscape($event)">
         <section x-data="{ activeIndex: 0, items: $el.querySelectorAll('[data-carousel-item]'), showLightbox: true }"
                  x-init="items[0].classList.remove('hidden')">
-            <x-utils.modal>
+            <x-utils.modal class="dark">
                 <x-slot name="title">
                     This is a modal title
                 </x-slot>
