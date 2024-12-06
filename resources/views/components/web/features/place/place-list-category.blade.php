@@ -16,7 +16,7 @@
                         </div>
                     </x-slot>
                     <x-slot name="footer" class="p-3">
-                        <div class="text-center">
+                        <div class="text-center pb-3">
                             <span class="read-more">Show ({{ $category->posts_count }}) places</span>
                         </div>
                     </x-slot>

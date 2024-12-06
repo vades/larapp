@@ -9,13 +9,13 @@
     @endif
 
     @if(isset($place->content))
-        <div class="mb-8 text-skin-place">
+        <div class="my-8 text-skin-place">
             {!! $place->content !!}
         </div>
     @endif
 
     @if(isset($highlights) && count($highlights) > 0)
-        <h2 class="text-lg mb-4">Altstadt - St. Lorenz highlights</h2>
+        <h2 class="text-lg">Altstadt - St. Lorenz highlights</h2>
      <x-web.features.place.partials.place-item-highlight :highlights="$highlights" class="mb-8 text-skin-place" />
     @endif
 
