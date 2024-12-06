@@ -1,4 +1,4 @@
-<span {{$attributes->class(['relative inline-flex bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'])}}>
+<span {{$attributes->class(['relative inline-flex bg-skin-base text-skin-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'])}}>
     <span>
          {{ $slot }}
     </span>
