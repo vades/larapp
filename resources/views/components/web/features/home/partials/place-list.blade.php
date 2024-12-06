@@ -1,5 +1,5 @@
 @props(['places'])
-<section {{$attributes->class(['sm:grid sm:grid-cols-2 sm:gap-2 md:gap-3 md:grid-cols-4 lg:grid-cols-6 text-skin-place'])}}>
+<section {{$attributes->class(['sm:grid sm:grid-cols-2 sm:gap-2 md:gap-3 md:grid-cols-3 lg:grid-cols-4 text-skin-place'])}}>
     @foreach($places as $item)
         <a class="text-skin-place" href="{{ route('placeItem',  ['placeId'=>$item->slug]) }}">
             <x-utils.card class="bg-skin-place">
@@ -10,15 +10,15 @@
                 </x-slot>
                 <x-slot name="body"
                         class="p-3">
-                    <h2 class="text-2xl font-bold mb-3">{{ $item->title }}</h2>
-                    <div class="mb-3">
+                    <h2 class="text-center  mb-3">{{ $item->title }}</h2>
+                   {{--  <div class="mb-3">
                         {{ $item->description }}
-                    </div>
+                    </div> --}}
                 </x-slot>
                 <x-slot name="footer"
                         class="p-3">
-                    <div>
-                        <span class="btn btn-primary">Read More</span>
+                    <div class="text-center pb-3">
+                        <span class="read-more">Read More</span>
                     </div>
                 </x-slot>
             </x-utils.card>

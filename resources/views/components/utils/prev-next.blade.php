@@ -5,7 +5,7 @@
         @if(isset($prevUrl))
             <a href="{{$prevUrl}}"
                class="button before:content-['\2039'] before::ml-2 rtl:after:rotate-180">
-                Prev
+                Previous
             </a>
         @endif
         <!-- endregion -->
