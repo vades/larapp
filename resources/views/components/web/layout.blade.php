@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="Description" content="{{ $description ?? 'This is LARAPP' }}">
-        <meta name="keywords" content="{{ $keywords ?? 'key1 key2'}}">
-        <title>{{ $title ?? 'LARAPP' }}</title>
+        <meta name="description" content="{{ $description ?? config('myapp.metaDescription') }}">
+        <meta name="keywords" content="{{ $description ?? config('myapp.metaKeywords') }}">
+        <title>{{ $title ??  config('myapp.metaTitle') }}</title>
 
         @vite(["resources/scss/" . config('myapp.project') . "/app.scss", 'resources/js/app.js'])
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

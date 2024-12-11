@@ -10,6 +10,9 @@ return [
     'project' => $myAppProjects[(new Request)->getHost()]['name'] ?? 'dev',
     'name' => $myAppProjects[(new Request)->getHost()]['label'] ?? 'Larapp',
     'slogan' => $myAppProjects[(new Request)->getHost()]['slogan'] ?? 'Larapp dev version',
+    'metaTitle' => $myAppProjects[(new Request)->getHost()]['metaTitle'] ?? 'Larapp DEV',
+    'metaDescription' => $myAppProjects[(new Request)->getHost()]['metaDescription'] ?? 'Larapp dev version',
+    'metaKeywords' => $myAppProjects[(new Request)->getHost()]['metaKeywords'] ?? 'development, laravel, php',
     'importsDir' => 'app/imports/',
     'projects'=> [
         'dev' => 1,
