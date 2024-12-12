@@ -68,7 +68,17 @@ class ProjectService
 
     private function importIvnbgProject(): void
     {
-        throw new Exception('ImportProject not implemented for project: ' . $this->project);
+        try {
+            $categoryService = new ProjectCategoryService($this->project);
+            $categoryService->handle();
+            array_push($this->errors, $categoryService->getErrors());
+            array_push($this->success, $categoryService->getSuccess());
+
+
+            //dd('Importing DEV project data to the database');
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
 
 
     }
