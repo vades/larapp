@@ -20,13 +20,15 @@ class PostData extends Data
         public PostStatus $post_status,
         public int $position,
         public int $views_count,
-        public string|Optional $slug,
         public string $lang,
         public string $title,
+        public string|null|Optional $slug,
         public string|Optional $subtitle,
         public string|Optional $description,
         public string|Optional $content,
         public string|Optional $image_url,
         public array|Optional $options,
+        public string|null|Optional $created_at,
+        public string|null|Optional $updated_at,
     ) {}
 }

@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
                         UserSeeder::class,
-                        TagSeeder::class,
+                        //TagSeeder::class,
                         ProjectSeeder::class,
-                        CategorySeeder::class,
-                        PostSeeder::class,
+                        //CategorySeeder::class,
+                       // PostSeeder::class,
                     ]);
         $timestamp = Carbon::now()->format('Y-m-d H:i:s');
-        foreach (range(1, 100) as $i) {
+       /* foreach (range(1, 100) as $i) {
             DB::table('category_post')->insert([
                                                    'category_id' => rand(1, 10),
                                                    'post_id' => $i,
@@ -32,6 +32,6 @@ class DatabaseSeeder extends Seeder
                                               'tag_id' => rand(1, 20),
                                               'post_id' => $i,
                                           ]);
-        }
+        }*/
     }
 }
