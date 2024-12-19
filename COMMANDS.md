@@ -28,6 +28,7 @@
 ## Imports
 - php artisan app:import-project --name dev
 - php artisan app:generate-album {--url=}
+- php artisan app:csv-to-md
 
 ```
 -c, --controller Create a new controller for the model
